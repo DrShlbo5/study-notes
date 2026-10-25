@@ -1,0 +1,528 @@
+<div class="trap"><b>الاختبار الفصلي الأول (حسب آخر شريحة في محاضرة switch)</b>شامل كل المواضيع من البداية حتى switch. يعني الحلقات والدوال (معمل 8 و9 و10) غالباً ما تدخل في الفصلي الأول. ركّز على: المقدمة، المتغيرات وأنواع البيانات، العمليات وMath وScanner، if، switch.</div>
+<h2 id="j0">مقدمة البرمجة وجافا<span class="lab">محاضرة 00</span></h2>
+<p><b>البرمجة</b>: <mark>عملية كتابة تعليمات وأوامر لجهاز الحاسب بلغة تفهمها الآلة لتنفيذ مهام محددة أو حل مشكلات معيّنة.</mark> وهي: إعطاء أوامر بخطوات واضحة، ووسيلة تواصل تحوّل أفكار البشر للغة الآلة، وحل مشكلات بتحليلها وتحويلها لحلول برمجية.</p>
+<div class="tbl"><table>
+<tr><th></th><th>لغة الآلة (Machine Code)</th><th>لغات البرمجة (Programming Languages)</th></tr>
+<tr><td>التكوين</td><td>أصفار وآحاد (0 و 1) فقط</td><td>مفردات إنجليزية وقواعد منطقية</td></tr>
+<tr><td>الفهم</td><td>المعالج يفهمها وينفذها مباشرة</td><td>تحتاج وسيطاً (مترجم) لترجمتها</td></tr>
+<tr><td>للبشر</td><td>شبه مستحيلة القراءة والكتابة</td><td>سهلة الفهم والتعديل</td></tr>
+</table></div>
+<ul>
+  <li><b>دورة حياة الكود</b>: الكود المصدري (يكتبه المبرمج بلغة عالية المستوى) ← <b>المترجم</b> ← لغة الآلة (ينفذها المعالج).</li>
+  <li><b>لغات عالية المستوى (High-Level)</b>: قريبة من لغة البشر، أسهل في التعلم والكتابة واكتشاف الأخطاء. <b>منخفضة المستوى (Low-Level)</b>: قريبة من عتاد الحاسب ولغة الآلة، سريعة التنفيذ لكنها معقدة وصعبة القراءة.</li>
+  <li><b>مجالات التطبيق</b>: الذكاء الاصطناعي، تطوير الويب، تطبيقات الهواتف، الأنظمة المدمجة (الأجهزة الطبية والسيارات).</li>
+  <li><b>لغات شائعة</b>: Python سهلة (ذكاء اصطناعي وتحليل بيانات)، JavaScript متوسطة (واجهات المواقع)، C++ متقدمة (أنظمة معقدة وألعاب).</li>
+  <li><b>مميزات جافا</b>: شعبية هائلة ومراجع كثيرة، بسيطة وسهلة التعلم، شبيهة بـ C و C++ لكن أسهل، <mark>البرنامج يعمل على أي نظام فيه جافا</mark>، مطلوبة في سوق العمل.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>المكوّن</th><th>الاسم</th><th>وظيفته</th></tr>
+<tr><td><b>JDK</b></td><td>حزمة تطوير البرمجيات</td><td>كل الأدوات والمترجمات اللازمة لكتابة وتطوير الكود</td></tr>
+<tr><td><b>JRE</b></td><td>بيئة التشغيل</td><td>المكتبات والملفات الضرورية لتشغيل البرامج الجاهزة</td></tr>
+<tr><td><b>JVM</b></td><td>الآلة الافتراضية</td><td>المحرك اللي ينفذ الكود المترجم (Bytecode) على نظام التشغيل</td></tr>
+</table></div>
+<p><b>آلية الترجمة</b>: <code>Hello.java</code> (Source Code) ← <code>javac</code> (Compiler) ← <code>Hello.class</code> (Byte Code) ← <code>JVM</code> (Interpreter) ← نظام التشغيل.</p>
+<ul>
+  <li><b>Source Code</b>: الكود أو الشفرة المصدرية.</li>
+  <li><b>Byte Code</b>: كود جافا اللي تم التأكد من صحته وتجهيزه لمفسر جافا.</li>
+  <li><b>javac</b>: اختصار Java Compiler، مترجم جافا، يحوّل الكود إلى Byte Code.</li>
+  <li><b>JVM</b>: اختصار Java Virtual Machine، مترجم (Interpreter) خاص لتشغيل الـ Byte Code.</li>
+  <li>المشروع قد يحتوي أكثر من كلاس، لكن <mark>نقطة البداية (Entry Point) واحدة وهي الدالة main</mark>.</li>
+</ul>
+<h3>دوال الطباعة الثلاث</h3>
+<div class="tbl"><table>
+<tr><th>الدالة</th><th>عملها</th></tr>
+<tr><td><code>System.out.print()</code></td><td>تطبع نص أو رقم</td></tr>
+<tr><td><code>System.out.println()</code></td><td>تطبع ثم تنزل سطر جديد</td></tr>
+<tr><td><code>System.out.printf()</code></td><td>تطبع <b>بترتيب محدد</b> (تنسيق): <code>printf("x is: %d", x)</code> يحط قيمة x مكان <code>%d</code></td></tr>
+</table></div>
+
+<h2 id="j0b">المتغيرات وأنواع البيانات<span class="lab">محاضرة 01</span></h2>
+<p><b>المتغير</b>: <mark>مكان يتم حجزه في الذاكرة لتخزين قيم (بيانات لها نوع محدد) أثناء تشغيل البرنامج.</mark> في جافا لازم المبرمج يحدد النوع، والقيمة ممكن تتغير أثناء التنفيذ. الصيغة: النوع ثم مسافة ثم الاسم ثم <code>;</code></p>
+<div class="tbl"><table>
+<tr><th>المصطلح</th><th>المعنى</th><th>مثال</th></tr>
+<tr><td>التعريف Declaration</td><td>تعريف متغير جديد بدون قيمة (حجز مساحة باسم ونوع)</td><td><code>int x;</code></td></tr>
+<tr><td>الإسناد Assignment</td><td>إعطاء قيمة لمتغير معرّف مسبقاً</td><td><code>x = 10;</code></td></tr>
+<tr><td>الإنشاء Initialisation</td><td>التعريف والإسناد معاً في خطوة واحدة</td><td><code>double sum = 0;</code></td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>النوع</th><th>الفئة</th><th>الحجم</th><th>المدى</th><th>القيمة الافتراضية</th></tr>
+<tr><td><code>byte</code></td><td rowspan="4">أعداد صحيحة</td><td>8 bit</td><td>‎-128 إلى 127</td><td>0</td></tr>
+<tr><td><code>short</code></td><td>16 bit</td><td>‎-32,768 إلى 32,767</td><td>0</td></tr>
+<tr><td><code>int</code></td><td>32 bit</td><td>‎-2,147,483,648 إلى 2,147,483,647</td><td>0</td></tr>
+<tr><td><code>long</code></td><td>64 bit</td><td>ضخمة جداً، تنتهي بـ L</td><td>0L</td></tr>
+<tr><td><code>float</code></td><td rowspan="2">أعداد كسرية</td><td>32 bit (دقة أحادية)</td><td>تنتهي بـ f</td><td>0.0f</td></tr>
+<tr><td><code>double</code></td><td>64 bit (دقة مضاعفة)</td><td>تنتهي بـ d اختيارياً</td><td>0.0d</td></tr>
+<tr><td><code>boolean</code></td><td>منطقية</td><td>1 bit</td><td>true / false</td><td>false</td></tr>
+<tr><td><code>char</code></td><td>رموز</td><td>16 bit</td><td>0 إلى 65,535</td><td><code>'\u0000'</code></td></tr>
+</table></div>
+<ul>
+  <li><b>البيانات البدائية (Primitive)</b>: الأنواع الثمانية المعرّفة مسبقاً في جافا.</li>
+  <li><b>البيانات المرجعية (Object / Reference)</b>: أصلها كائن من كلاس، مثل <code>String</code> و<code>Array</code> و<code>Scanner</code>. <mark>أي متغير نستخدم معه <code>new</code> فهو مرجعي، وقيمته الافتراضية <code>null</code> (كائن فارغ).</mark></li>
+  <li>أمثلة: <code>String web = "www.university.edu";</code> و<code>int[] numbers = new int[100];</code> و<code>Scanner input = new Scanner(System.in);</code></li>
+  <li>تعريف عدة متغيرات: <code>int a, b, c;</code> و<code>int a = 10, b = 20, c = 30;</code> و<code>int a, b[], c[][];</code> (a متغير، b مصفوفة، c مصفوفة ثنائية).</li>
+  <li><mark><code>int[] a, b, c;</code> تعني أن الثلاثة مصفوفات</mark>، وليست متغيرات عادية.</li>
+  <li>لا يمكن استخدام متغير بدون إسناد قيمة له: <code>int a; System.out.println(a);</code> يعطي الخطأ <code>variable a might not have been initialized</code>.</li>
+  <li><b>الكلمات المحجوزة</b> لا تصلح أسماء متغيرات، مثل: int, class, if, else, for, while, switch, case, break, new, public, static, void, return, true مو منها لكنها قيمة محجوزة أيضاً.</li>
+</ul>
+
+<h2 id="j0c">العمليات وMath وإدخال البيانات<span class="lab">محاضرة 02</span></h2>
+<ul>
+  <li><b>قسمة int على int</b> ناتجها دائماً عدد صحيح، والمترجم <mark>يقتطع الجزء العشري (Truncation) ولا يقرّب</mark>: <code>5 / 2</code> = 2. للنتيجة الدقيقة: <code>(double) a / b</code> أو <code>1.0 * a / b</code>.</li>
+  <li><b>%</b> باقي القسمة: <code>10 % 3</code> = 1. يُستخدم لمعرفة الزوجي والفردي (<code>% 2</code>).</li>
+  <li><b>الكلاس Math</b> في الحزمة <code>java.lang.Math</code>، جاهز بدون import.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>الدالة</th><th>مثال ← الناتج</th></tr>
+<tr><td><code>Math.max / min</code></td><td><code>Math.max(15.5, 25.0)</code> ← 25.0</td></tr>
+<tr><td><code>Math.abs</code></td><td><code>Math.abs(-15.5)</code> ← 15.5</td></tr>
+<tr><td><code>Math.ceil</code></td><td><code>Math.ceil(4.2)</code> ← 5.0</td></tr>
+<tr><td><code>Math.floor</code></td><td><code>Math.floor(4.9)</code> ← 4.0</td></tr>
+<tr><td><code>Math.round</code></td><td><code>Math.round(10.4)</code> ← 10، <code>Math.round(10.5)</code> ← 11 (يرجع long)</td></tr>
+<tr><td><code>Math.pow</code></td><td><code>Math.pow(3, 2)</code> ← 9.0</td></tr>
+<tr><td><code>Math.sqrt</code></td><td><code>Math.sqrt(25)</code> ← 5.0، <mark>والسالب يرجع NaN</mark> (Not a Number)</td></tr>
+<tr><td><code>Math.PI</code></td><td>قيمة π = 3.14159...</td></tr>
+<tr><td><code>Math.random()</code></td><td>عدد عشري عشوائي من 0.0 إلى أقل من 1.0</td></tr>
+</table></div>
+<pre><code>int r1 = (int)(Math.random() * 10);                          // من 0 إلى 9
+int r2 = (int)(Math.random() * ((max - min) + 1)) + min;     // من min إلى max (الـ +1 تشمل max)
+Math.round(8.659857 * 100) / 100.0;                           // تقريب لخانتين: 8.66
+double circleArea = Math.PI * Math.pow(radius, 2);           // مساحة الدائرة</code></pre>
+<h3>Scanner</h3>
+<ul>
+  <li>كلاس جاهز (Built-in) في الحزمة <code>java.util</code>، لاستقبال البيانات من لوحة المفاتيح أو الملفات. خطوتين: <code>import java.util.Scanner;</code> ثم <code>Scanner input = new Scanner(System.in);</code></li>
+  <li>دوال القراءة: <code>next()</code> كلمة واحدة (تتوقف عند المسافة أو Enter)، <code>nextLine()</code> سطر كامل (تتوقف عند Enter)، <code>nextInt()</code>، <code>nextDouble()</code>، <code>nextBoolean()</code>، <code>nextByte()</code>، <code>nextShort()</code>، <code>nextFloat()</code>، <code>nextLong()</code>.</li>
+  <li><b>close()</b>: ممارسة مهمة، <mark>تحرر موارد النظام والذاكرة، وتمنع تسريب الذاكرة (Memory Leaks) وتحذيرات المترجم.</mark></li>
+  <li><b>دوال التحقق (Check Methods)</b>: تبدأ بـ <code>hasNext</code> وترجع boolean، تفحص المدخل قبل قراءته. لو أدخل المستخدم نصاً مكان رقم بدونها يطلع <code>InputMismatchException</code> وينهار البرنامج.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>الدالة</th><th>ترجع true إذا</th></tr>
+<tr><td><code>hasNext()</code></td><td>أدخل أي نص أو كلمة</td></tr>
+<tr><td><code>hasNextInt()</code></td><td>المدخل رقم صحيح يتخزن في int</td></tr>
+<tr><td><code>hasNextDouble()</code></td><td>المدخل رقم عشري يتخزن في double</td></tr>
+<tr><td><code>hasNextBoolean()</code></td><td>المدخل true أو false حصراً</td></tr>
+</table></div>
+
+<h2 id="j0d">العوامل والشروط<span class="lab">محاضرة 03 و04</span></h2>
+<ul>
+  <li><b>أنواع العوامل الأربعة</b>: الحسابية (Arithmetic)، الإسناد (Assignment)، المقارنة (Comparison)، المنطقية (Logical).</li>
+  <li><code>b = a++</code> زيادة لاحقة (Post-increment): a=6, b=5. <code>b = ++a</code> زيادة سابقة (Pre-increment): a=6, b=6. ونفسها مع <code>--</code>.</li>
+  <li><code>a += b</code> يكافئ <code>a = a + b</code>، ونفسها <code>-= *= /=</code>.</li>
+  <li><b>AND <code>&amp;&amp;</code></b>: true فقط إذا الشرطين true. <b>OR <code>||</code></b>: false فقط إذا الشرطين false. <b>NOT <code>!</code></b>: يعكس.</li>
+  <li><b>مفهوم الشروط</b>: التحكم بمسار البرنامج، التعامل مع احتمالات متعددة، الشروط المتداخلة، دمج الشروط بالعوامل المنطقية، كفاءة التنفيذ (تنفيذ الأجزاء المطلوبة فقط).</li>
+  <li><mark>الشرط داخل <code>if</code> لازم يكون من نوع boolean.</mark></li>
+  <li><b>Nested if</b>: if داخل if، تسلسل هرمي، و<mark>الشرط الداخلي ما يُفحص إطلاقاً إلا إذا تحقق الخارجي</mark>.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>if</th><th>switch</th></tr>
+<tr><td>تنفيذ كود عند تحقق شرط محدد</td><td>اختبار قيمة متطابقة بدقة</td></tr>
+<tr><td>التعامل مع شروط متداخلة</td><td>لائحة من الاحتمالات الواضحة</td></tr>
+<tr><td>استخدام العوامل المنطقية</td><td>تنفيذ الأوامر في الاحتمال المتطابق فقط</td></tr>
+</table></div>
+<ul>
+  <li><b>متى نستخدم switch</b>: اختبار متغير مع لائحة احتمالات محددة، وبديل مقروء لسلسلة if-else if الطويلة، و<mark>أسرع في التنفيذ</mark> من الشروط المتداخلة.</li>
+  <li><b>switch</b> بداية فحص المتغير، <b>case</b> قيمة محتملة، <b>break</b> توقف التنفيذ وتخرج، <b>default</b> عند عدم التطابق.</li>
+  <li>دمج حالات: <code>case 12: case 1: case 2:</code> أو بالصيغة المختصرة <code>case 12, 1, 2:</code> (جافا 14 وأحدث).</li>
+</ul>
+<div class="trap"><b>انتبه على ملاحظات في الشرائح</b>عناوين شريحتي 4 و5 في محاضرة 03 مقلوبة، لكن الأمثلة صحيحة: <code>a++</code> لاحقة و<code>++a</code> سابقة. وقول المحاضرة إن كل دوال Math ترجع double مو دقيق دائماً: <code>Math.round</code> ترجع long، و<code>Math.max(5, 2)</code> و<code>Math.abs(-12)</code> مع int ترجع int (يطبع 5 و12 بدون .0).</div>
+
+<h2 id="j1">بنية برنامج جافا<span class="lab">معمل 1 و2</span></h2>
+<pre><code>// FirstJavaClass.java   ← اسم الملف = اسم الكلاس
+public class FirstJavaClass {
+    public static void main(String[] args) {   // نقطة البداية
+        displayUserInfo();
+    }
+    public static void displayUserInfo() {
+        System.out.println("Java is Case Sensitive");
+    }
+}</code></pre>
+<ul>
+  <li><mark>جافا حساسة لحالة الأحرف</mark>: <code>Var</code> غير <code>var</code>.</li>
+  <li><b>اسم الكلاس</b> يبدأ بحرف كبير وكل كلمة بحرف كبير: <code>FirstJavaClass</code>.</li>
+  <li><b>اسم الدالة والمتغير</b> يبدأ بحرف صغير والكلمات التالية بحرف كبير (camelCase): <code>displayUserInfo()</code>.</li>
+  <li><b>اسم الملف</b> يطابق اسم الكلاس تماماً: <code>HelloWorld.java</code> فيه <code>class HelloWorld</code>.</li>
+  <li><mark>التنفيذ يبدأ من <code>main()</code></mark>، والأوامر داخلها تتنفذ من فوق لتحت.</li>
+  <li>كل برنامج جافا <b>يجب</b> أن يحتوي على كلاس واحد على الأقل.</li>
+  <li>الأقواس المعقوفة <code>{ }</code> تحدد الكتل (Blocks). البرنامج البسيط فيه كتلتان: كتلة الكلاس وكتلة <code>main</code>.</li>
+  <li>التعليقات: <code>//</code> لسطر واحد، و<code>/* ... */</code> لعدة أسطر. <b>لا تؤثر على التنفيذ</b>، وفائدتها شرح الكود.</li>
+  <li>التنسيق (Indentation): أربع مسافات أو Tab، لا يؤثر على التنفيذ لكنه يسهل القراءة.</li>
+</ul>
+<div class="trap"><b>سؤال المعمل 1</b>إذا لم تفعّل خيار <code>public static void main</code> وشغّلت البرنامج: ما يشتغل، ويطلع خطأ أن الكلاس ما فيه دالة main (في Eclipse: Selection does not contain a main type). وفي NetBeans تكتب <code>psvm</code> ثم Tab لتضيفها، وتشغّل الملف بـ <code>Shift + F6</code>.</div>
+
+<h3>بيئات التطوير</h3>
+<ul>
+  <li><b>Eclipse</b>: أول ما يفتح يطلب <b>Workspace</b> (المكان اللي تنحفظ فيه برامجك). إنشاء مشروع: File ← New ← Java Project، ثم زر يمين على <code>src</code> ← New ← Class.</li>
+  <li>مناطق Eclipse الأربع: Package Explorer للمشاريع، وEditing Area للكود، وOutline لهيكل البرنامج، وConsole للمخرجات والأخطاء.</li>
+  <li><b>NetBeans</b>: مشروع جديد بـ <code>Ctrl+Shift+N</code> ← Java with Ant ← Java Application، وفعّل Create Main Class. يحتاج JDK.</li>
+</ul>
+
+<h2 id="j2">جمل الطباعة ورموز التجاوز<span class="lab">معمل 2 و3</span></h2>
+<ul>
+  <li><code>System.out.println()</code> تطبع ثم <b>تنزل سطر جديد</b>. <code>System.out.print()</code> تطبع <b>بدون</b> نزول سطر.</li>
+  <li><code>System.out.println();</code> بدون شيء تطبع سطراً فارغاً.</li>
+  <li>علامة <code>+</code> تربط النصوص ببعض أو بالمتغيرات، واسمها الربط (<b>Concatenation</b>).</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>الرمز</th><th>وظيفته</th><th>مثال ← الناتج</th></tr>
+<tr><td><code>\n</code></td><td>سطر جديد</td><td><code>"Welcome\nTo Java"</code> ← سطرين</td></tr>
+<tr><td><code>\t</code></td><td>مسافة Tab</td><td><code>"Name:\tFahad"</code></td></tr>
+<tr><td><code>\b</code></td><td>يحذف الحرف اللي قبله</td><td><code>"Helloo\b"</code> ← Hello</td></tr>
+<tr><td><code>\r</code></td><td>يرجع لبداية السطر</td><td><code>"Java\rHi"</code></td></tr>
+<tr><td><code>\'</code></td><td>يطبع '</td><td><code>"It\'s Java"</code></td></tr>
+<tr><td><code>\"</code></td><td>يطبع "</td><td><code>"He said \"Hello\""</code></td></tr>
+<tr><td><code>\\</code></td><td>يطبع \</td><td><code>"C:\\Java\\Files"</code> ← C:\Java\Files</td></tr>
+<tr><td><code>\u</code></td><td>رمز Unicode</td><td><code>"\u00A9"</code> ← ©</td></tr>
+<tr><td><code>\f</code></td><td>فاصل صفحة داخل النص</td><td><code>"Java\fProgramming"</code></td></tr>
+</table></div>
+<div class="trap"><b>فخ الربط</b><code>"Sum: " + 2 + 3</code> يطبع <code>Sum: 23</code>، لأن الربط يمشي من اليسار ويصير كل شيء نص. لو تبي الجمع اكتب <code>"Sum: " + (2 + 3)</code> ← <code>Sum: 5</code>.</div>
+
+<h2 id="j3">المتغيرات وأنواع البيانات والعمليات<span class="lab">معمل 4</span></h2>
+<p>المتغير مساحة في الذاكرة لها <b>اسم</b> و<b>نوع بيانات</b> و<b>قيمة</b>: <code>int age = 22;</code>. يجب تعريفه قبل استخدامه، ويمكن تعريف أكثر من متغير من نفس النوع: <code>int x, y, z;</code> أو <code>int i = 2, j = 2, k = 2;</code></p>
+<div class="tbl"><table>
+<tr><th>النوع</th><th>الحجم</th><th>المدى</th><th>مثال</th></tr>
+<tr><td><code>byte</code></td><td>8 bits</td><td><mark>‎-128 إلى 127</mark></td><td><code>byte a = 100;</code></td></tr>
+<tr><td><code>short</code></td><td>16 bits</td><td>‎-32,768 إلى 32,767</td><td><code>short s = 2000;</code></td></tr>
+<tr><td><code>int</code></td><td>32 bits</td><td>‎-2³¹ إلى 2³¹-1</td><td><code>int x = 50000;</code></td></tr>
+<tr><td><code>long</code></td><td>64 bits</td><td>‎-2⁶³ إلى 2⁶³-1</td><td><code>long n = 100000L;</code></td></tr>
+<tr><td><code>float</code></td><td>32 bits</td><td>±3.4×10³⁸</td><td><code>float f = 3.14f;</code></td></tr>
+<tr><td><code>double</code></td><td>64 bits</td><td>±1.7×10³⁰⁸ (الافتراضي للعشري)</td><td><code>double d = 3.141;</code></td></tr>
+<tr><td><code>char</code></td><td>16 bits</td><td>حرف واحد بين ' '</td><td><code>char ch = 'A';</code></td></tr>
+<tr><td><code>boolean</code></td><td>حسب JVM</td><td><code>true</code> / <code>false</code></td><td><code>boolean ok = true;</code></td></tr>
+<tr><td><code>String</code></td><td colspan="2">نص بين " " (ليس نوعاً أساسياً، هو كلاس)</td><td><code>String n = "Ali";</code></td></tr>
+</table></div>
+<div class="trap"><b>byte = 129</b><code>byte k = 129;</code> خطأ ترجمة لأن 129 خارج مدى byte. الحل استخدام <code>short</code> أو <code>int</code>.</div>
+
+<h3>العمليات الحسابية</h3>
+<p><code>=</code> إسناد، <code>+</code> جمع، <code>-</code> طرح، <code>*</code> ضرب، <code>/</code> قسمة، <code>%</code> باقي القسمة.</p>
+<div class="grid2">
+<pre><code>System.out.println(7 / 2);          // 3   قسمة صحيحة
+System.out.println(7 % 2);          // 1
+System.out.println((double) 7 / 2); // 3.5
+System.out.println(3 * 2 / 4);      // 1
+System.out.println(3.0 * 2 / 4);    // 1.5</code></pre>
+<div>
+<p><mark>القسمة الصحيحة (Integer Division)</mark>: لما يكون الطرفين <code>int</code> ينحذف الجزء العشري. الحل: نوع عشري أو التحويل <code>(double)</code>.</p>
+</div>
+</div>
+
+<h3>الزيادة والنقصان (Prefix / Postfix)</h3>
+<ul>
+  <li><code>++x</code> قبلية (Prefix): <b>يزيد أولاً</b> ثم يستخدم القيمة.</li>
+  <li><code>x++</code> بعدية (Postfix): <b>يستخدم القيمة أولاً</b> ثم يزيد.</li>
+  <li>نفس الشيء مع <code>--x</code> و<code>x--</code>.</li>
+</ul>
+<div class="trap"><b>انتبه</b>في جدول مذكرة المعمل 4 الأمثلة مكتوبة بالعكس. الصحيح أن <code>x++</code> هي البعدية و<code>++x</code> هي القبلية.</div>
+<pre><code>int x = 5;
+System.out.println(++x);  // 6   (x صار 6)
+System.out.println(x++);  // 6   (بعدها x صار 7)
+System.out.println(--x);  // 6   (x صار 6)
+System.out.println(x--);  // 6   (بعدها x صار 5)
+System.out.println(x);    // 5</code></pre>
+
+<h2 id="j4">قراءة المدخلات بـ Scanner<span class="lab">معمل 5</span></h2>
+<pre><code>import java.util.Scanner;                    // 1) الاستيراد
+public class One {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);   // 2) إنشاء الكائن
+        System.out.print("ادخل رقم: ");
+        int number = input.nextInt();
+        System.out.println("الرقم هو: " + number);
+        input.close();                         // 3) الإغلاق
+    }
+}</code></pre>
+<div class="tbl"><table>
+<tr><th>الدالة</th><th>تقرأ</th></tr>
+<tr><td><code>nextInt()</code></td><td>عدد صحيح</td></tr>
+<tr><td><code>nextDouble()</code></td><td>عدد عشري</td></tr>
+<tr><td><code>nextLine()</code></td><td><mark>سطر كامل</mark> بالمسافات (اسم كامل)</td></tr>
+<tr><td><code>next()</code></td><td>كلمة واحدة (يتوقف عند المسافة)</td></tr>
+<tr><td><code>next().charAt(0)</code></td><td>حرف واحد (char)</td></tr>
+<tr><td><code>nextBoolean()</code></td><td>true / false</td></tr>
+</table></div>
+<ul>
+  <li><code>System.in</code> تعني الإدخال من لوحة المفاتيح، و<code>input</code> اسم الكائن ويمكن تغييره.</li>
+  <li><code>city.length()</code> تعطيك عدد أحرف النص.</li>
+</ul>
+<div class="trap"><b>تمرين 8 في المعمل</b>لو أدخل المستخدم نصاً والبرنامج ينتظر رقماً (<code>nextInt</code>) يتوقف البرنامج بخطأ وقت التشغيل اسمه <code>InputMismatchException</code>.</div>
+<div class="trap"><b>فخ nextLine</b>لو قرأت <code>nextInt()</code> ثم <code>nextLine()</code>، الـ nextLine تأخذ سطراً فارغاً (بقايا Enter). الحل: <code>input.nextLine();</code> زيادة قبلها، أو اقرأ النص أولاً.</div>
+
+<h2 id="j5">المعاملات وجملة if<span class="lab">معمل 6</span></h2>
+<div class="grid2">
+<div class="tbl"><table>
+<tr><th>علاقية</th><th>المعنى</th></tr>
+<tr><td><code>&gt;</code> <code>&lt;</code></td><td>أكبر، أصغر</td></tr>
+<tr><td><code>&gt;=</code> <code>&lt;=</code></td><td>أكبر أو يساوي، أصغر أو يساوي</td></tr>
+<tr><td><code>==</code></td><td>يساوي (مقارنة)</td></tr>
+<tr><td><code>!=</code></td><td>لا يساوي</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>منطقية</th><th>النتيجة true إذا</th></tr>
+<tr><td><code>&amp;&amp;</code> AND</td><td>كل الشروط صحيحة</td></tr>
+<tr><td><code>||</code> OR</td><td>شرط واحد على الأقل صحيح</td></tr>
+<tr><td><code>!</code> NOT</td><td>يعكس القيمة</td></tr>
+</table></div>
+</div>
+<ul>
+  <li><mark><code>=</code> إسناد قيمة، و<code>==</code> مقارنة.</mark></li>
+  <li>مقارنة النصوص (String) تكون بـ <code>s1.equals(s2)</code> وليس <code>==</code>، لأن <code>==</code> تقارن العناوين في الذاكرة.</li>
+  <li><code>!(x &gt; y)</code> تعكس النتيجة: لو x أكبر تصير false.</li>
+  <li>حلول جدول المعمل: <code>7 &gt; 3</code> true، <code>4 &lt; 2</code> false، <code>8 &gt;= 8</code> true، <code>5 &gt;= 6</code> false. وجدول المنطقية: 2) true، 3) false، 4) false، 5) true، 6) true.</li>
+</ul>
+<pre><code>if (mark >= 90) {
+    System.out.println("Excellent");
+} else if (mark >= 75) {
+    System.out.println("Very Good");
+} else if (mark >= 60) {
+    System.out.println("Good");
+} else {
+    System.out.println("Fail");
+}</code></pre>
+<p>الترتيب مهم: أول شرط يتحقق يتنفذ والباقي يتجاهله.</p>
+
+<h2 id="j6">جملة switch<span class="lab">معمل 7</span></h2>
+<pre><code>switch (dayNumber) {
+    case 1:  dayName = "الإثنين"; break;
+    case 2:  dayName = "الثلاثاء"; break;
+    case 6:
+    case 7:  dayName = "عطلة نهاية الأسبوع"; break;   // Fall-Through
+    default: dayName = "رقم غير صالح";
+}</code></pre>
+<ul>
+  <li>تقارن قيمة متغير واحد مع قيم ثابتة في <code>case</code>.</li>
+  <li><mark><code>break</code> تخرج من switch.</mark> بدونها يكمل التنفيذ في الحالة اللي بعدها، وهذا اسمه <b>Fall-Through</b>.</li>
+  <li><code>default</code> تتنفذ إذا ما تحققت أي حالة.</li>
+  <li>تعمل مع int وchar وString. لا تقبل شروط مثل <code>&gt;</code>.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>العنصر</th><th>switch</th><th>if</th></tr>
+<tr><td>نوع الشرط</td><td>مقارنة قيمة واحدة</td><td>شروط منطقية (<code>&gt;</code> <code>&lt;</code> <code>&amp;&amp;</code>)</td></tr>
+<tr><td>الاستخدام</td><td>حالات ثابتة (values)</td><td>شروط معقدة ونطاقات</td></tr>
+<tr><td>المرونة</td><td>أقل</td><td>أكثر</td></tr>
+</table></div>
+
+<h2 id="j7">جمل التكرار<span class="lab">معمل 8</span></h2>
+<div class="grid2">
+<pre><code>for (int i = 1; i <= 5; i++) {
+    System.out.println(i);
+}</code></pre>
+<pre><code>int i = 1;
+while (i <= 5) {
+    System.out.println(i);
+    i++;
+}</code></pre>
+<pre><code>int i = 1;
+do {
+    System.out.println(i);
+    i++;
+} while (i <= 5);   // لاحظ ; في النهاية</code></pre>
+<div>
+<p><b>مكونات for</b>: التهيئة (Initialization) مرة واحدة، ثم الشرط (Condition) قبل كل دورة، ثم التغيير (Update) بعد كل دورة.</p>
+<p><mark>for</mark> لما يكون عدد التكرارات معروفاً.</p>
+</div>
+</div>
+<div class="tbl"><table>
+<tr><th>الخاصية</th><th>while</th><th>do..while</th></tr>
+<tr><td>فحص الشرط</td><td>قبل التنفيذ</td><td>بعد التنفيذ</td></tr>
+<tr><td>التنفيذ الأول</td><td>قد لا يحدث</td><td><mark>يحدث دائماً مرة واحدة على الأقل</mark></td></tr>
+</table></div>
+<ul>
+  <li><code>break</code>: خروج فوري من الحلقة. مثال: لو <code>i == 5</code> break ← يطبع 1 2 3 4.</li>
+  <li><code>continue</code>: يتخطى الدورة الحالية فقط. مثال: لو <code>i % 3 == 0</code> continue من 1 إلى 7 ← يطبع 1 2 4 5 7.</li>
+</ul>
+
+<h2 id="j8">الحلقات المتداخلة<span class="lab">معمل 9</span></h2>
+<p>الحلقة الخارجية (Outer) = <b>الصفوف</b>، والداخلية (Inner) = <b>الأعمدة</b>. الداخلية تكمل كل دوراتها مع كل دورة للخارجية، وبعد الداخلية نكتب <code>println()</code> للنزول سطر.</p>
+<div class="grid2">
+<div><pre><code>// مثلث
+for (int i = 1; i <= 5; i++) {
+    for (int j = 1; j <= i; j++)
+        System.out.print("*");
+    System.out.println();
+}</code></pre><div class="out">*<br>**<br>***<br>****<br>*****</div></div>
+<div><pre><code>// مثلث لليمين: مسافات ثم نجوم
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n - i; j++)
+        System.out.print(" ");
+    for (int k = 1; k <= i; k++)
+        System.out.print("*");
+    System.out.println();
+}</code></pre></div>
+<div><pre><code>// مقلوب
+for (int i = n; i >= 1; i--) {
+    for (int k = 1; k <= i; k++)
+        System.out.print("* ");
+    System.out.println();
+}</code></pre></div>
+<div><pre><code>// هرم: مسافات n-i ثم "* " عدد i
+for (int i = 1; i <= n; i++) {
+    for (int j = 1; j <= n - i; j++)
+        System.out.print(" ");
+    for (int k = 1; k <= i; k++)
+        System.out.print("* ");
+    System.out.println();
+}</code></pre></div>
+<div><pre><code>// جدول ضرب
+for (int i = 1; i <= 3; i++) {
+    for (int j = 1; j <= 5; j++)
+        System.out.println(i + " x " + j + " = " + (i * j));
+    System.out.println("-----");
+}</code></pre></div>
+<div><pre><code>// 1 / 1 2 / 1 2 3 ...
+for (int i = 1; i <= N; i++) {
+    for (int j = 1; j <= i; j++)
+        System.out.print(j + " ");
+    System.out.println();
+}</code></pre></div>
+</div>
+<p>القاعدة: اطبع رقم الصف <code>i</code> لتحصل على 1 1 1 / 2 2 2، واطبع رقم العمود <code>j</code> لتحصل على 1 2 3. ولشكل القطر: <code>i == j</code> القطر، <code>i &lt; j</code> فوقه، <code>i &gt; j</code> تحته.</p>
+
+<h2 id="j9">الدوال (Methods)<span class="lab">معمل 10</span></h2>
+<p>الدالة جزء من الكود ينفذ مهمة محددة وله اسم، نستدعيه أكثر من مرة بدون تكرار الكتابة. فوائدها: تقليل التكرار، وتنظيم البرنامج، وسهولة الصيانة، وإعادة الاستخدام.</p>
+<div class="tbl"><table>
+<tr><th>النوع</th><th>مثال</th></tr>
+<tr><td>لا ترجع قيمة ولا تأخذ معاملات</td><td><code>static void sayHello()</code></td></tr>
+<tr><td>لا ترجع قيمة وتأخذ معاملات</td><td><code>static void printAdd(int total)</code></td></tr>
+<tr><td>ترجع قيمة ولا تأخذ معاملات</td><td><code>static int getNumber() { return 10; }</code></td></tr>
+<tr><td>ترجع قيمة وتأخذ معاملات (الأكثر استخداماً)</td><td><code>static int add(int a, int b) { return a + b; }</code></td></tr>
+</table></div>
+<p><mark><code>void</code> تعني أن الدالة لا ترجع شيئاً</mark>، والدالة اللي ترجع قيمة لازم فيها <code>return</code>.</p>
+<h3>دوال Math الجاهزة</h3>
+<div class="tbl"><table>
+<tr><th>الدالة</th><th>الوظيفة</th><th>مثال</th></tr>
+<tr><td><code>Math.abs(x)</code></td><td>القيمة المطلقة</td><td><code>Math.abs(-5)</code> ← 5</td></tr>
+<tr><td><code>Math.sqrt(x)</code></td><td>الجذر التربيعي</td><td><code>Math.sqrt(25)</code> ← 5.0</td></tr>
+<tr><td><code>Math.pow(x, y)</code></td><td>x أس y</td><td><code>Math.pow(2, 3)</code> ← 8.0</td></tr>
+<tr><td><code>Math.max(x, y)</code></td><td>الأكبر</td><td><code>Math.max(4, 9)</code> ← 9</td></tr>
+<tr><td><code>Math.min(x, y)</code></td><td>الأصغر</td><td><code>Math.min(4, 9)</code> ← 4</td></tr>
+<tr><td><code>Math.ceil(x)</code></td><td>تقريب لأعلى</td><td><code>Math.ceil(4.3)</code> ← 5.0</td></tr>
+<tr><td><code>Math.floor(x)</code></td><td>تقريب لأسفل</td><td><code>Math.floor(4.9)</code> ← 4.0</td></tr>
+<tr><td><code>Math.round(x)</code></td><td>أقرب عدد صحيح</td><td><code>Math.round(4.5)</code> ← 5</td></tr>
+</table></div>
+<p>لاحظ: <code>sqrt</code> و<code>pow</code> و<code>ceil</code> و<code>floor</code> ترجع <b>double</b> (لذلك يطلع .0).</p>
+
+<h2 id="j10">حلول تمارين مختارة</h2>
+<details><summary>معمل 6: تقدير الطالب مع التحقق من الدرجة</summary>
+<pre><code>Scanner input = new Scanner(System.in);
+System.out.print("ادخل الدرجة: ");
+double grade = input.nextDouble();
+if (grade &lt; 0 || grade &gt; 100) {
+    System.out.println("خطأ: الدرجة يجب أن تكون بين 0 و 100");
+} else {
+    char g;
+    if (grade &gt;= 90) g = 'A';
+    else if (grade &gt;= 80) g = 'B';
+    else if (grade &gt;= 70) g = 'C';
+    else if (grade &gt;= 60) g = 'D';
+    else g = 'F';
+    System.out.println("الدرجة: " + grade + "  التقدير: " + g);
+}</code></pre></details>
+<details><summary>معمل 6: الأصغر من ثلاثة أعداد، والعدد بين 10 و20</summary>
+<pre><code>int a = input.nextInt(), b = input.nextInt(), c = input.nextInt();
+int min = a;
+if (b &lt; min) min = b;
+if (c &lt; min) min = c;
+System.out.println("الأصغر: " + min);
+
+int n = input.nextInt();
+if (n &gt;= 10 &amp;&amp; n &lt;= 20) System.out.println("بين 10 و 20");
+else System.out.println("خارج النطاق");</code></pre></details>
+<details><summary>معمل 7: الأحرف الصوتية بـ Fall-Through</summary>
+<pre><code>char ch = input.next().charAt(0);
+switch (ch) {
+    case 'a': case 'e': case 'i': case 'o': case 'u':
+        System.out.println("حرف علة");
+        break;
+    default:
+        System.out.println("حرف ساكن");
+}</code></pre></details>
+<details><summary>معمل 7: فصول السنة وعدد أيام الشهر</summary>
+<pre><code>switch (month) {
+    case 12: case 1: case 2:  System.out.println("الشتاء"); break;
+    case 3:  case 4: case 5:  System.out.println("الربيع"); break;
+    case 6:  case 7: case 8:  System.out.println("الصيف");  break;
+    case 9:  case 10: case 11: System.out.println("الخريف"); break;
+    default: System.out.println("رقم غير صالح");
+}
+
+switch (month) {
+    case 1: case 3: case 5: case 7: case 8: case 10: case 12:
+        System.out.println(31); break;
+    case 4: case 6: case 9: case 11:
+        System.out.println(30); break;
+    case 2:
+        System.out.println(28); break;
+    default: System.out.println("رقم غير صالح");
+}</code></pre></details>
+<details><summary>معمل 7: آلة حاسبة وأوامر نصية (String في switch)</summary>
+<pre><code>int a = 10, b = 5;
+char op = input.next().charAt(0);
+switch (op) {
+    case '+': System.out.println(a + b); break;
+    case '-': System.out.println(a - b); break;
+    case '*': System.out.println(a * b); break;
+    case '/': System.out.println(a / b); break;
+    case '%': System.out.println(a % b); break;
+    default:  System.out.println("عملية غير صالحة");
+}
+
+String cmd = input.next();
+switch (cmd) {
+    case "CREATE": System.out.println("إنشاء"); break;
+    case "READ":   System.out.println("قراءة"); break;
+    case "UPDATE": System.out.println("تحديث"); break;
+    case "DELETE": System.out.println("حذف");   break;
+    default:       System.out.println("أمر غير صالح");
+}</code></pre></details>
+<details><summary>معمل 8: جمع حتى عدد سالب، جدول الضرب، المضروب</summary>
+<pre><code>// جمع الأعداد حتى يدخل المستخدم عدداً سالباً (while)
+int sum = 0;
+int num = input.nextInt();
+while (num &gt;= 0) {
+    sum += num;
+    num = input.nextInt();
+}
+System.out.println("المجموع = " + sum);
+
+// جدول الضرب
+int n = input.nextInt();
+for (int i = 1; i &lt;= 10; i++)
+    System.out.println(n + " x " + i + " = " + (n * i));
+
+// المضروب: 5! = 120
+long fact = 1;
+for (int i = 1; i &lt;= n; i++) fact *= i;
+System.out.println(n + "! = " + fact);</code></pre></details>
+<details><summary>معمل 8 تمرين 6: جمع الموجب، وإعادة الإدخال عند السالب، والتوقف عند الصفر (do..while)</summary>
+<pre><code>int sum = 0, num;
+do {
+    System.out.print("ادخل رقم (0 للإنهاء): ");
+    num = input.nextInt();
+    while (num &lt; 0) {
+        System.out.print("رقم سالب، أعد الإدخال: ");
+        num = input.nextInt();
+    }
+    sum += num;
+} while (num != 0);
+System.out.println("المجموع = " + sum);</code></pre></details>
+<details><summary>معمل 10 تمرين 3: الجمع بأربع طرق + دالة فاصل</summary>
+<pre><code>public class Lab10Ex1 {
+    static void line() { System.out.println("----------"); }
+
+    static void sum1() { int a = 5, b = 3; System.out.println(a + b); }      // لا ترجع ولا تأخذ
+    static int  sum2() { int a = 5, b = 3; return a + b; }                   // ترجع ولا تأخذ
+    static void sum3(int a, int b) { System.out.println(a + b); }            // لا ترجع وتأخذ
+    static int  sum4(int a, int b) { return a + b; }                         // ترجع وتأخذ
+
+    public static void main(String[] args) {
+        sum1();                          line();
+        System.out.println(sum2());      line();
+        sum3(5, 3);                      line();
+        System.out.println(sum4(5, 3));  line();
+    }
+}</code></pre></details>
+<details><summary>معمل 3: طباعة جدول بـ Escape Sequences</summary>
+<pre><code>System.out.println("Name:\tAbdullah");
+System.out.println("Course: \"Java Programming\"");
+System.out.println("\\ // -=- \\ //");
+System.out.println("\\\\ \\\\\\ \\\\\\\\");   // يطبع \\ \\\ \\\\
+System.out.println("ID\tProduct Name\tPrice");
+System.out.println("101\tEspresso\t3.50");</code></pre></details>

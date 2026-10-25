@@ -1,0 +1,19 @@
+{
+  "title": "PHP",
+  "color": "#6d28d9",
+  "colorDark": "#a78bfa",
+  "order": 3,
+  "short": "PHP",
+  "sources": [
+    "Lec1php.pdf",
+    "Lec2php.pdf",
+    "Lec3php.pdf",
+    "Lec4php.pdf",
+    "Lab1php.pdf",
+    "Lab2php.pdf",
+    "Lab3php.pdf",
+    "Lab4php.pdf",
+    "Form_exercises_1.pdf",
+    "PHP_Study_Guide.pdf"
+  ]
+}

@@ -1,0 +1,385 @@
+<h2 id="s1">مراجعة SQL<span class="lab">Lab 2 · Tut 2</span></h2>
+<ul>
+  <li><b>SQL</b>: لغة قياسية لتخزين ومعالجة واسترجاع البيانات من قواعد البيانات العلائقية.</li>
+  <li><b>قاعدة البيانات العلائقية</b>: البيانات في <mark>جداول من صفوف (Rows/Records) وأعمدة (Columns/Attributes)</mark> وبينها علاقات.</li>
+  <li><b>Primary Key</b> في جدول يشير إليه <b>Foreign Key</b> في جدول آخر، والهدف <mark>تكوين العلاقات بين الجداول</mark>.</li>
+  <li>أنواع العلاقات: One-to-One، وOne-to-Many، وMany-to-Many.</li>
+</ul>
+<div class="tbl"><table>
+<tr><th>التصنيف</th><th>الأوامر</th></tr>
+<tr><td>DDL تعريف البيانات</td><td>CREATE, ALTER, DROP, TRUNCATE</td></tr>
+<tr><td>DML معالجة البيانات</td><td>INSERT, UPDATE, DELETE</td></tr>
+<tr><td>DQL الاستعلام</td><td>SELECT</td></tr>
+<tr><td>DCL التحكم بالصلاحيات</td><td>GRANT, REVOKE</td></tr>
+<tr><td>TCL التحكم بالعمليات</td><td>COMMIT, ROLLBACK</td></tr>
+</table></div>
+<pre><code>SELECT * FROM students WHERE age > 22;              -- WHERE تفلتر الصفوف
+SELECT * FROM students ORDER BY gpa DESC;           -- ترتيب تنازلي (ASC تصاعدي)
+SELECT major, COUNT(*) FROM students GROUP BY major;
+SELECT major, COUNT(*) FROM students
+GROUP BY major HAVING COUNT(*) > 1;                  -- HAVING تفلتر المجموعات
+
+SELECT COUNT(*), SUM(gpa), AVG(gpa), MIN(gpa), MAX(gpa) FROM students;
+
+SELECT first_name || ' ' || last_name AS full_name FROM students;
+SELECT SUBSTR(first_name, 1, 3), UPPER(last_name), LOWER(first_name),
+       LENGTH(first_name), REPLACE(major, 'Computer', 'Comp') FROM students;
+
+SELECT * FROM students WHERE major IN (SELECT course_name FROM courses);
+SELECT * FROM students WHERE gpa > ANY (SELECT gpa FROM students WHERE major = 'Business');
+SELECT * FROM students WHERE gpa > ALL (SELECT gpa FROM students WHERE major = 'Business');
+
+SELECT first_name FROM students UNION     SELECT course_name FROM courses;
+SELECT first_name FROM students INTERSECT SELECT course_name FROM courses;
+SELECT first_name FROM students MINUS     SELECT course_name FROM courses;  -- EXCEPT في الإصدارات الحديثة</code></pre>
+<ul>
+  <li><mark>WHERE تفلتر الصفوف قبل التجميع، وHAVING تفلتر المجموعات بعد GROUP BY.</mark></li>
+  <li><code>&gt; ANY</code> أكبر من أي قيمة (أي أكبر من الأصغر)، و<code>&gt; ALL</code> أكبر من الكل (أي أكبر من الأكبر).</li>
+  <li>UNION يجمع النتائج بدون تكرار، وINTERSECT المشترك، وEXCEPT/MINUS الموجود في الأول وليس في الثاني.</li>
+</ul>
+<div class="trap"><b>ملاحظة على Oracle (APEX)</b><code>CONCAT</code> في Oracle تأخذ قيمتين فقط، فالأفضل الربط بـ <code>||</code>. و<code>LIMIT 5</code> لا تعمل في Oracle، والبديل <code>FETCH FIRST 5 ROWS ONLY</code>.</div>
+
+<h2 id="s2">أساسيات PL/SQL وبنية الكتلة<span class="lab">Lab 3 · Tut 3</span></h2>
+<p><b>PL/SQL</b> لغة إجرائية من Oracle تجمع أوامر SQL مع خصائص اللغات الإجرائية: المتغيرات، والشروط (IF)، والتكرار (LOOP)، والاستثناءات (Exceptions). البرنامج اسمه <b>كتلة (Block)</b>.</p>
+<pre><code>DECLARE                    -- اختياري: تعريف المتغيرات
+   v_name   VARCHAR2(20) := 'Ali';
+   v_salary NUMBER := 5000;
+BEGIN                      -- إجباري: التنفيذ
+   DBMS_OUTPUT.PUT_LINE('Welcome, ' || v_name);
+EXCEPTION                  -- اختياري: معالجة الأخطاء
+   WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error');
+END;                       -- إجباري</code></pre>
+<ul>
+  <li><mark>DECLARE اختياري، وBEGIN ... END إجباري، وEXCEPTION اختياري داخل الجسم.</mark></li>
+  <li><b>كتلة مجهولة (Anonymous)</b>: بدون اسم، تنفذ مرة ولا تُخزن ولا تُستدعى. <b>كتلة باسم (Named)</b>: تُخزن وتُستدعى مثل Procedure وFunction وPackage.</li>
+  <li>PL/SQL <b>غير حساسة لحالة الأحرف</b> (NOT case-sensitive).</li>
+  <li>مكونات الجمل: الكلمات المحجوزة (BEGIN, IF ...)، والمعرّفات (أسماء يعرّفها المستخدم)، والمحددات (<code>; ( ) ,</code>)، والقيم الثابتة Literals (أرقام ونصوص وتواريخ)، والتعليقات <code>--</code> و<code>/* */</code>.</li>
+  <li>الطباعة بـ <code>DBMS_OUTPUT.PUT_LINE</code>، والربط بـ <code>||</code>.</li>
+</ul>
+<div class="trap"><b>Tut 3 · Task 1</b>تنفيذ <code>DBMS_OUTPUT.PUT_LINE('Hello PLSQL');</code> لوحدها يعطي خطأ، لأنها جملة PL/SQL ولازم تكون داخل <code>BEGIN ... END;</code></div>
+
+<h2 id="s3">المتغيرات وأنواع البيانات<span class="lab">Lab 4 · Tut 4</span></h2>
+<ul>
+  <li>المتغير مكان في الذاكرة لقيمة من نوع محدد، و<mark>يُعرّف في قسم DECLARE</mark>.</li>
+  <li><mark>معامل الإسناد في PL/SQL هو <code>:=</code></mark>، والمقارنة بـ <code>=</code>.</li>
+  <li><b>Scalar</b>: قيمة واحدة مثل NUMBER وVARCHAR2 وDATE وBOOLEAN. <b>Composite</b>: بيانات مركبة مثل Records وCollections.</li>
+  <li><b>التهيئة</b>: إعطاء المتغير قيمة ابتدائية، إما عند التعريف في DECLARE أو داخل BEGIN. المتغير بدون قيمة يكون NULL.</li>
+  <li><b>DEFAULT</b>: قيمة ابتدائية يحتفظ بها المتغير إذا لم تتغير: <code>v_bonus NUMBER DEFAULT 500;</code></li>
+  <li><b>CONSTANT</b>: ثابت <mark>يجب إسناد قيمته عند التعريف ولا يمكن تغييرها</mark>: <code>c_tax_rate CONSTANT NUMBER := 0.15;</code></li>
+  <li><code>SYSDATE</code> تاريخ اليوم، و<code>NULL;</code> جملة لا تفعل شيئاً.</li>
+</ul>
+<h3>الكتل المتداخلة ونطاق المتغير</h3>
+<pre><code>DECLARE
+   v_message VARCHAR2(20) := 'Outer Block';
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(v_message);        -- Outer Block
+   DECLARE
+      v_message VARCHAR2(20) := 'Inner Block';
+   BEGIN
+      DBMS_OUTPUT.PUT_LINE(v_message);     -- Inner Block
+   END;
+   DBMS_OUTPUT.PUT_LINE(v_message);        -- Outer Block
+END;</code></pre>
+<p>متغير الكتلة الخارجية <b>Global</b> يُرى في الداخلية، ومتغير الداخلية <b>Local</b> لا يُرى خارجها. إذا تكرر الاسم، الداخلي يغطي على الخارجي داخل كتلته فقط.</p>
+<div class="trap"><b>طباعة BOOLEAN</b>في أغلب إصدارات Oracle ما تقدر تطبع BOOLEAN مباشرة بـ PUT_LINE أو تربطها بـ <code>||</code>. استخدم IF: <code>IF v_flag THEN DBMS_OUTPUT.PUT_LINE('TRUE'); END IF;</code></div>
+<p><b>الممارسات الجيدة</b>: أسماء واضحة (<code>v_salary</code> بدل <code>x1</code>)، وتعليقات، وتنسيق بإزاحة، وCONSTANT للقيم الثابتة، وتهيئة المتغيرات.</p>
+
+<h2 id="s4">SQL داخل PL/SQL<span class="lab">Lab 5 · Tut 5</span></h2>
+<h3>1) EXECUTE IMMEDIATE لأوامر DDL</h3>
+<pre><code>BEGIN
+   EXECUTE IMMEDIATE 'CREATE TABLE departments (dept_id INT PRIMARY KEY, dept_name VARCHAR2(50))';
+EXCEPTION
+   WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;</code></pre>
+<p><mark>أوامر DDL (CREATE, ALTER, DROP, TRUNCATE) لا تُكتب مباشرة داخل الكتلة، لازم EXECUTE IMMEDIATE</mark> والأمر كنص بين ' '.</p>
+<h3>2) SELECT INTO</h3>
+<pre><code>DECLARE
+   v_name   employees.first_name%TYPE;
+   v_salary employees.salary%TYPE;
+BEGIN
+   SELECT first_name, salary INTO v_name, v_salary
+   FROM employees WHERE employee_id = 1;
+   DBMS_OUTPUT.PUT_LINE('Employee: ' || v_name || ' Salary: ' || v_salary);
+END;</code></pre>
+<ul>
+  <li>تجلب البيانات من الجدول وتسندها إلى متغيرات، و<mark>ترجع صفاً واحداً فقط</mark>.</li>
+  <li>لو ما رجع ولا صف: <code>NO_DATA_FOUND</code>. لو رجع أكثر من صف: <code>TOO_MANY_ROWS</code>.</li>
+</ul>
+<h3>3) %TYPE و %ROWTYPE</h3>
+<ul>
+  <li><code>v_name emp.name%TYPE;</code> المتغير يأخذ <b>نفس نوع العمود</b> في الجدول.</li>
+  <li><code>emp_rec employees%ROWTYPE;</code> متغير يمثل <b>صفاً كاملاً</b>، وتصل للأعمدة بـ <code>emp_rec.first_name</code>.</li>
+</ul>
+<pre><code>DECLARE
+   emp_rec employees%ROWTYPE;
+BEGIN
+   SELECT * INTO emp_rec FROM employees WHERE employee_id = 2;
+   DBMS_OUTPUT.PUT_LINE(emp_rec.first_name || ' - ' || emp_rec.salary);
+END;</code></pre>
+<h3>4) DML وعدة صفوف</h3>
+<pre><code>-- لعرض عدة صفوف نستخدم FOR ... IN (SELECT) LOOP
+BEGIN
+   FOR rec IN (SELECT first_name, last_name FROM employees) LOOP
+      DBMS_OUTPUT.PUT_LINE(rec.first_name || ' ' || rec.last_name);
+   END LOOP;
+END;
+
+DECLARE
+   v_bonus NUMBER := 1000;
+BEGIN
+   UPDATE employees SET salary = salary + v_bonus WHERE department = 'HR';
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' employees updated.');   -- عدد الصفوف المتأثرة
+   COMMIT;
+END;</code></pre>
+
+<h2 id="s5">الجمل الشرطية IF و CASE<span class="lab">Lab 6</span></h2>
+<div class="grid2">
+<pre><code>IF v_salary >= 15000 THEN
+   DBMS_OUTPUT.PUT_LINE('Executive');
+ELSIF v_salary BETWEEN 8000 AND 14999 THEN
+   DBMS_OUTPUT.PUT_LINE('Mid-level');
+ELSE
+   DBMS_OUTPUT.PUT_LINE('Entry-level');
+END IF;</code></pre>
+<pre><code>CASE v_dept_id
+   WHEN 60 THEN DBMS_OUTPUT.PUT_LINE('IT');
+   WHEN 80 THEN DBMS_OUTPUT.PUT_LINE('Sales');
+   WHEN 90 THEN DBMS_OUTPUT.PUT_LINE('Executive');
+   ELSE DBMS_OUTPUT.PUT_LINE('Other');
+END CASE;</code></pre>
+</div>
+<div class="trap"><b>أخطاء الكتابة الشائعة</b><code>ELSIF</code> وليس ELSEIF ولا ELSE IF. كل IF تنتهي بـ <code>END IF;</code> وكل CASE جملة تنتهي بـ <code>END CASE;</code>. والمقارنة في PL/SQL بـ <code>=</code> (وليس ==)، و"لا يساوي" <code>!=</code> أو <code>&lt;&gt;</code>. والمعاملات المنطقية بالكلمات: AND, OR, NOT.</div>
+<h3>CASE داخل SELECT INTO</h3>
+<pre><code>SELECT first_name,
+       CASE WHEN salary >= 15000 THEN 'High'
+            WHEN salary BETWEEN 8000 AND 14999 THEN 'Medium'
+            ELSE 'Low'
+       END                         -- هنا END فقط لأنها تعبير داخل SQL
+INTO v_name, v_label
+FROM OEHR_EMPLOYEES WHERE employee_id = 108;</code></pre>
+<h3>IF مع UPDATE و IF المتداخلة</h3>
+<pre><code>SELECT department_id, salary INTO v_dept, v_salary
+FROM OEHR_EMPLOYEES WHERE employee_id = 105;
+
+IF v_dept = 80 THEN
+   IF v_salary > 10000 THEN DBMS_OUTPUT.PUT_LINE('High earner in Sales');
+   ELSE DBMS_OUTPUT.PUT_LINE('Sales staff');
+   END IF;
+ELSE
+   DBMS_OUTPUT.PUT_LINE('Not in Sales department');
+END IF;</code></pre>
+<p>قاعدة HR في APEX تثبتها من SQL Workshop ← Utilities ← Sample Datasets ← HR Data ← Install. أرقام الأقسام: 60 = IT، و80 = Sales، و90 = Executive.</p>
+
+<h2 id="s6">الحلقات والأخطاء والإجراءات والدوال<span class="lab">Lab 3</span></h2>
+<div class="grid2">
+<pre><code>BEGIN
+   FOR i IN 1..5 LOOP
+      DBMS_OUTPUT.PUT_LINE('Iteration: ' || i);
+   END LOOP;
+END;</code></pre>
+<pre><code>DECLARE
+   v_num NUMBER := 1;
+BEGIN
+   WHILE v_num <= 5 LOOP
+      DBMS_OUTPUT.PUT_LINE('Number: ' || v_num);
+      v_num := v_num + 1;
+   END LOOP;
+END;</code></pre>
+</div>
+<pre><code>DECLARE
+   v_result NUMBER;
+BEGIN
+   v_result := 10 / 0;
+EXCEPTION
+   WHEN ZERO_DIVIDE THEN DBMS_OUTPUT.PUT_LINE('Error: Division by zero!');
+   WHEN OTHERS      THEN DBMS_OUTPUT.PUT_LINE('Unexpected: ' || SQLERRM);
+END;</code></pre>
+<pre><code>CREATE OR REPLACE PROCEDURE greet_user(p_name VARCHAR2) AS
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Hello, ' || p_name);
+END;
+-- الاستدعاء:
+BEGIN greet_user('Ali'); END;
+
+CREATE OR REPLACE FUNCTION calculate_bonus(salary NUMBER) RETURN NUMBER AS
+BEGIN
+   RETURN salary * 0.10;
+END;
+-- الاستدعاء:
+SELECT calculate_bonus(5000) FROM dual;     -- 500</code></pre>
+<p>الإجراء والدالة <b>كتل باسم</b>، تُخزن في قاعدة البيانات. في APEX تلقاها في <b>SQL Workshop ← Object Browser</b> تحت Procedures وFunctions. الفرق: <mark>الدالة ترجع قيمة بـ RETURN والإجراء لا</mark>.</p>
+
+<h2 id="s7">حلول Tutorials</h2>
+<details><summary>Tut 2 و Tut 5: الأسئلة النظرية</summary>
+<p><b>Tut 2</b>: 1) ب لغة قياسية لتخزين ومعالجة واسترجاع البيانات. 2) ج جداول من صفوف وأعمدة. 3) ج تكوين العلاقات. 4) د Many-to-One-to-One. 5) ج فلترة البيانات.</p>
+<p><b>Tut 5</b>: 1) B تنفيذ SQL الديناميكية مثل DDL. 2) C إسناد قيم الأعمدة لمتغيرات. 3) B صف واحد فقط. 4) B ربط نوع المتغير بنوع عمود. 5) B EXECUTE IMMEDIATE.</p>
+</details>
+<details><summary>Tut 2: جدول books بـ SQL (Q1 إلى Q10)</summary>
+<pre><code>-- Q1
+CREATE TABLE books (
+   book_id  NUMBER PRIMARY KEY,
+   title    VARCHAR2(100),
+   author   VARCHAR2(100),
+   category VARCHAR2(50),
+   price    NUMBER(8,2)
+);
+-- Q2
+INSERT INTO books VALUES (1, 'Clean Code', 'Robert Martin', 'Programming', 45);
+INSERT INTO books VALUES (2, 'SQL Basics', 'Ali Saleh',     'Database',    30);
+INSERT INTO books VALUES (3, 'Java Guide', 'Sara Ahmed',    'Programming', 70);
+INSERT INTO books VALUES (4, 'Oracle PL/SQL', 'Omar Nasser','Database',    85);
+INSERT INTO books VALUES (5, 'Web Design', 'Huda Fahad',    'Web',         55);
+-- Q3
+SELECT title, author FROM books;
+-- Q4
+SELECT * FROM books WHERE price > 50;
+-- Q5
+UPDATE books SET price = 60 WHERE book_id = 1;
+-- Q6
+DELETE FROM books WHERE book_id = 2;
+-- Q7
+SELECT category, COUNT(*) FROM books GROUP BY category;
+-- Q8
+SELECT category, COUNT(*) FROM books GROUP BY category HAVING COUNT(*) > 1;
+-- Q9
+SELECT * FROM books WHERE price > (SELECT AVG(price) FROM books);
+-- Q10
+SELECT UPPER(title) FROM books;</code></pre></details>
+<details><summary>Tut 5: نفس التمارين داخل كتل PL/SQL</summary>
+<pre><code>-- Q1  (شغّل كل كتلة لحالها)
+BEGIN
+   EXECUTE IMMEDIATE 'CREATE TABLE books (book_id NUMBER PRIMARY KEY,
+      title VARCHAR2(100), author VARCHAR2(100),
+      category VARCHAR2(50), price NUMBER(8,2))';
+EXCEPTION
+   WHEN OTHERS THEN DBMS_OUTPUT.PUT_LINE('Error: ' || SQLERRM);
+END;
+
+-- Q2
+BEGIN
+   INSERT INTO books VALUES (1, 'Clean Code', 'Robert Martin', 'Programming', 45);
+   INSERT INTO books VALUES (2, 'SQL Basics', 'Ali Saleh', 'Database', 30);
+   INSERT INTO books VALUES (3, 'Java Guide', 'Sara Ahmed', 'Programming', 70);
+   INSERT INTO books VALUES (4, 'Oracle PL/SQL', 'Omar Nasser', 'Database', 85);
+   INSERT INTO books VALUES (5, 'Web Design', 'Huda Fahad', 'Web', 55);
+   COMMIT;
+END;
+
+-- Q3  الكتاب رقم 1
+DECLARE
+   v_title  books.title%TYPE;
+   v_author books.author%TYPE;
+BEGIN
+   SELECT title, author INTO v_title, v_author FROM books WHERE book_id = 1;
+   DBMS_OUTPUT.PUT_LINE(v_title || ' - ' || v_author);
+END;
+
+-- Q4
+BEGIN
+   FOR rec IN (SELECT title, price FROM books WHERE price > 50) LOOP
+      DBMS_OUTPUT.PUT_LINE(rec.title || ' : ' || rec.price);
+   END LOOP;
+END;
+
+-- Q5
+BEGIN
+   UPDATE books SET price = 60 WHERE book_id = 1;
+   DBMS_OUTPUT.PUT_LINE(SQL%ROWCOUNT || ' row updated');
+   COMMIT;
+END;
+
+-- Q6
+BEGIN
+   DELETE FROM books WHERE book_id = 2;
+   COMMIT;
+END;
+
+-- Q7
+BEGIN
+   FOR rec IN (SELECT category, COUNT(*) cnt FROM books
+               GROUP BY category HAVING COUNT(*) > 1) LOOP
+      DBMS_OUTPUT.PUT_LINE(rec.category || ' has ' || rec.cnt || ' books');
+   END LOOP;
+END;
+
+-- Q8
+BEGIN
+   FOR rec IN (SELECT title, price FROM books
+               WHERE price > (SELECT AVG(price) FROM books)) LOOP
+      DBMS_OUTPUT.PUT_LINE(rec.title || ' : ' || rec.price);
+   END LOOP;
+END;
+
+-- Q9
+BEGIN
+   FOR rec IN (SELECT UPPER(title) t FROM books) LOOP
+      DBMS_OUTPUT.PUT_LINE(rec.t);
+   END LOOP;
+END;</code></pre></details>
+<details><summary>Tut 3: المتغيرات و IF والحلقات</summary>
+<pre><code>-- Task 3
+DECLARE
+   name      VARCHAR2(30) := 'Fahad';
+   salary    NUMBER := 8000;
+   hire_date DATE := SYSDATE;
+   is_active BOOLEAN := TRUE;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE(name || ' ' || salary || ' ' || hire_date);
+   IF is_active THEN DBMS_OUTPUT.PUT_LINE('Active: TRUE'); END IF;
+END;
+
+-- Task 4
+DECLARE
+   salary NUMBER := 2500;
+BEGIN
+   IF salary > 10000 THEN DBMS_OUTPUT.PUT_LINE('High Salary');
+   ELSIF salary < 3000 THEN DBMS_OUTPUT.PUT_LINE('Low Salary');
+   ELSE DBMS_OUTPUT.PUT_LINE('Normal Salary');
+   END IF;
+END;
+
+-- Task 5A: الزوجية من 1 إلى 10
+BEGIN
+   FOR i IN 1..10 LOOP
+      IF MOD(i, 2) = 0 THEN DBMS_OUTPUT.PUT_LINE(i); END IF;
+   END LOOP;
+END;
+
+-- Task 5B: الزوجية من 1 إلى 20
+DECLARE
+   n NUMBER := 2;
+BEGIN
+   WHILE n <= 20 LOOP
+      DBMS_OUTPUT.PUT_LINE(n);
+      n := n + 2;
+   END LOOP;
+END;</code></pre>
+<p>لاحظ: باقي القسمة في PL/SQL بالدالة <code>MOD(a, b)</code> وليس بـ %.</p></details>
+<details><summary>Tut 4: DEFAULT و CONSTANT والخصم</summary>
+<pre><code>-- تمرين 3: السعر بعد الخصم
+DECLARE
+   v_price    NUMBER := 200;
+   v_discount NUMBER := 0.10;
+   v_final    NUMBER;
+BEGIN
+   v_final := v_price - (v_price * v_discount);
+   DBMS_OUTPUT.PUT_LINE('Final price = ' || v_final);     -- 180
+END;
+
+-- تمرين 5
+DECLARE
+   v_bonus NUMBER DEFAULT 1000;
+BEGIN
+   DBMS_OUTPUT.PUT_LINE('Bonus = ' || v_bonus);
+END;
+
+-- تمرين 6 و 8
+DECLARE
+   c_tax_rate CONSTANT NUMBER := 0.15;   -- نسبة الضريبة ثابتة
+   v_price    NUMBER := 200;
+   v_total    NUMBER;
+BEGIN
+   -- السعر بعد إضافة الضريبة
+   v_total := v_price + (v_price * c_tax_rate);
+   DBMS_OUTPUT.PUT_LINE('Total = ' || v_total);           -- 230
+END;</code></pre></details>

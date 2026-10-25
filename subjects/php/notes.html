@@ -1,0 +1,286 @@
+<h2 id="p1">مقدمة عن PHP<span class="lab">محاضرة 1 · Lab 1</span></h2>
+<ul>
+  <li>PHP لغة لتطوير تطبيقات الويب الديناميكية، و<mark>تعمل على جانب الخادم (Server-side)</mark>.</li>
+  <li>طريقة العمل: المتصفح يرسل HTTP Request، والخادم ينفذ ملف PHP ويتعامل مع الملفات وقواعد البيانات، ثم يرسل <b>ناتج HTML فقط</b> للمتصفح. <mark>كود PHP نفسه لا يصل للمستخدم.</mark></li>
+  <li>مميزاتها: سهلة التعلم، أداء جيد، مستقرة، مفتوحة المصدر ومجانية، تدعم قواعد البيانات، تتكامل مع HTML، ومجتمعها كبير.</li>
+  <li>الكود يُكتب بين <code>&lt;?php</code> و<code>?&gt;</code>، وكل أمر ينتهي بـ <code>;</code></li>
+  <li>التعليقات: <code>//</code> و<code>#</code> لسطر واحد، و<code>/* */</code> لعدة أسطر.</li>
+  <li>Lab 1: شغّل <b>WampServer</b>، واحفظ الملف داخل مجلد <code>www</code> باسم بدون مسافات مثل <code>lab1.php</code>، وافتحه من <code>localhost/lab1.php</code>.</li>
+</ul>
+<pre><code>&lt;html&gt;
+&lt;head&gt;&lt;title&gt;First lab&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;
+  &lt;h2&gt;First lab&lt;/h2&gt;
+  &lt;?php
+    echo "&lt;font size='5' color='blue' face='Arial'&gt;Hi everyone&lt;/font&gt;";
+  ?&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+<h2 id="p2">الطباعة echo و print<span class="lab">محاضرة 1</span></h2>
+<div class="tbl"><table>
+<tr><th></th><th>echo</th><th>print</th></tr>
+<tr><td>عدد النصوص</td><td>أكثر من نص مفصولة بفاصلة <code>,</code></td><td>نص واحد فقط</td></tr>
+<tr><td>القيمة المرجعة</td><td>لا ترجع شيئاً</td><td><mark>ترجع 1</mark></td></tr>
+<tr><td>السرعة</td><td>أسرع</td><td>أبطأ قليلاً</td></tr>
+<tr><td>الأقواس</td><td colspan="2">الاثنتين بأقواس أو بدونها</td></tr>
+</table></div>
+<pre><code>echo "student grade:", "yes";      // ✔ صحيح
+print "student grade:", "yes";     // ✘ خطأ: print تقبل نصاً واحداً
+$r = print "xxx";                  // ✔ $r = 1
+$r = echo "xxx";                   // ✘ خطأ
+if (print "تم التنفيذ") echo " ✔";  // يطبع: تم التنفيذ ✔</code></pre>
+<ul>
+  <li><b>الربط بالنقطة <code>.</code></b>: <code>echo "WELCOME TO " . "PHP" . "&lt;br&gt;";</code></li>
+  <li><code>\"</code> لطباعة علامة تنصيص داخل نص بين " ".</li>
+  <li><code>&lt;br&gt;</code> سطر جديد في المتصفح، ونقدر نستخدم أي وسم HTML داخل echo.</li>
+  <li>نص مكتوب على عدة أسطر داخل echo <b>يظهر في سطر واحد</b> في المتصفح، والمسافات الكثيرة تظهر <b>مسافة واحدة</b>.</li>
+  <li><code>&amp;nbsp;</code> مسافة تظهر فعلياً في المتصفح، و<code>&lt;pre&gt;</code> يعرض المسافات والأسطر كما هي.</li>
+  <li><code>nl2br("Hi\nPHP")</code> تحوّل <code>\n</code> إلى <code>&lt;br&gt;</code> فيظهر السطر الجديد في المتصفح.</li>
+</ul>
+<h3>الفرق بين " و '</h3>
+<div class="tbl"><table>
+<tr><th>الكود</th><th>الناتج</th></tr>
+<tr><td><code>$grade = 5; echo "your grade is $grade";</code></td><td>your grade is 5</td></tr>
+<tr><td><code>echo 'your grade is $grade';</code></td><td><mark>your grade is $grade</mark> (المتغير ما يتعوض)</td></tr>
+<tr><td><code>echo 'i like php \n';</code></td><td>يطبع <code>\n</code> كما هي</td></tr>
+<tr><td><code>echo "i like php \n";</code></td><td>سطر جديد يظهر في <b>View Source</b> فقط، وليس في الصفحة</td></tr>
+<tr><td><code>echo 'i\'ll study';</code> / <code>echo "i'll study";</code></td><td>i'll study</td></tr>
+</table></div>
+
+<h2 id="p3">المتغيرات وأنواع البيانات<span class="lab">محاضرة 2</span></h2>
+<ul>
+  <li><mark>يبدأ المتغير بـ <code>$</code></mark>، ثم حرف أو <code>_</code>. لا يبدأ برقم، ولا يحتوي مسافة ولا <code>-</code>.</li>
+  <li>أسماء المتغيرات حساسة لحالة الأحرف: <code>$x</code> غير <code>$X</code>.</li>
+  <li><b>لا نصرح بالنوع</b>، PHP تحدده تلقائياً من القيمة المسندة.</li>
+  <li>الأنواع: Integer، Float، String، Boolean، Array، Object، NULL.</li>
+  <li><code>var_dump($x)</code> تطبع <b>نوع</b> المتغير وقيمته.</li>
+</ul>
+<div class="grid2">
+<div class="tbl"><table><tr><th>صحيح</th></tr>
+<tr><td><code>$name</code>، <code>$age</code>، <code>$_name</code>، <code>$user_name</code>، <code>$userName</code></td></tr></table></div>
+<div class="tbl"><table><tr><th>خطأ</th></tr>
+<tr><td><code>$2name</code> (يبدأ برقم)، <code>name</code> (بدون $)، <code>$user-name</code>، <code>$user name</code>، <code>$123</code></td></tr></table></div>
+</div>
+
+<h2 id="p4">العمليات<span class="lab">محاضرة 2</span></h2>
+<div class="grid2">
+<div class="tbl"><table>
+<tr><th>حسابية</th><th>x=10, y=4</th></tr>
+<tr><td><code>+ - *</code></td><td>14، 6، 40</td></tr>
+<tr><td><code>/</code></td><td><mark>2.5</mark> (ترجع عشري)</td></tr>
+<tr><td><code>%</code></td><td>2</td></tr>
+</table></div>
+<div class="tbl"><table>
+<tr><th>إسناد</th><th>يعادل</th></tr>
+<tr><td><code>$x += $y</code></td><td><code>$x = $x + $y</code></td></tr>
+<tr><td><code>-= *= /= %=</code></td><td>بنفس الطريقة</td></tr>
+</table></div>
+</div>
+<h3>المقارنة</h3>
+<div class="tbl"><table>
+<tr><th>العامل</th><th>المعنى</th><th>‎$x = 10, $y = "10"</th></tr>
+<tr><td><code>==</code></td><td>يساوي في القيمة</td><td>true</td></tr>
+<tr><td><code>!=</code> و <code>&lt;&gt;</code></td><td>لا يساوي</td><td>false</td></tr>
+<tr><td><code>===</code></td><td><mark>يساوي ومن نفس النوع</mark></td><td>false (int و string)</td></tr>
+<tr><td><code>!==</code></td><td>لا يطابق في القيمة أو النوع</td><td>true</td></tr>
+<tr><td><code>&lt; &gt; &lt;= &gt;=</code></td><td>أصغر، أكبر ...</td><td>false، false، true، true</td></tr>
+</table></div>
+<h3>الزيادة والنقصان</h3>
+<pre><code>$x = 10; echo ++$x; echo $x;   // 11  11
+$x = 10; echo $x++; echo $x;   // 10  11
+$x = 10; echo --$x; echo $x;   // 9   9
+$x = 10; echo $x--; echo $x;   // 10  9</code></pre>
+<div class="trap"><b>انتبه</b>في جدول المحاضرة 2 وصف <code>++$x</code> و<code>$x++</code> مكتوب بالعكس. الصحيح: <code>++$x</code> يزيد ثم يرجع القيمة، و<code>$x++</code> يرجع القيمة ثم يزيد، وهذا اللي يثبته مثال الشريحة 16.</div>
+<h3>المنطقية</h3>
+<p><code>and</code> و<code>&amp;&amp;</code>: الاثنين true. <code>or</code> و<code>||</code>: أحدهما true. <code>xor</code>: <mark>واحد فقط true وليس الاثنين</mark>. <code>!</code>: العكس.</p>
+
+<h2 id="p5">الجمل الشرطية<span class="lab">محاضرة 3 · Lab 3</span></h2>
+<pre><code>if ($mark >= 60)
+    echo "Pass";            // بدون {} السطر التالي فقط يتبع if
+
+if ($month == "feb") {
+    echo "$month has 28 or 29 days";
+} elseif ($month == "apr" || $month == "oct") {
+    echo "$month has 30 days";
+} else {
+    echo "check the month name";
+}
+
+switch ($month) {
+    case "feb": echo "28 or 29"; break;
+    case "apr":
+    case "oct": echo "30 days"; break;
+    default:    echo "check the month name";
+}
+
+switch (true) {               // switch مع شروط
+    case ($mark >= 90): echo "A"; break;
+    case ($mark >= 80): echo "B"; break;
+    default: echo "F";
+}</code></pre>
+<p>في PHP تُكتب <code>elseif</code> كلمة واحدة (و<code>else if</code> تعمل أيضاً).</p>
+
+<h2 id="p6">الحلقات<span class="lab">محاضرة 4 · Lab 4</span></h2>
+<div class="grid2">
+<div><pre><code>$i = 1;
+while ($i <= 4) {
+    $i++;
+    echo "The number is $i &lt;br&gt;";
+}</code></pre><div class="out">2، 3، 4، 5 (يزيد قبل الطباعة)</div></div>
+<div><pre><code>$i = 1;
+do {
+    echo "The number is " . ++$i . "&lt;br&gt;";
+} while ($i < 4);</code></pre><div class="out">2، 3، 4</div></div>
+<div><pre><code>for ($i = 1; $i <= 3; $i++) {
+    echo "The number is $i &lt;br&gt;";
+}</code></pre><div class="out">1، 2، 3</div></div>
+<div><p><b>while</b> تفحص الشرط أولاً. <b>do..while</b> <mark>تنفذ مرة واحدة على الأقل</mark>. <b>for</b> لما يكون عدد التكرار محدداً.</p></div>
+</div>
+
+<h2 id="p6b">النماذج Forms و $_POST<span class="lab">تمارين Forms</span></h2>
+<p>النموذج يرسل اللي كتبه المستخدم للسيرفر، وPHP تقرأه من مصفوفة <code>$_POST</code> (أو <code>$_GET</code>) باستخدام <mark>اسم الحقل name</mark>.</p>
+<ul>
+  <li><code>method="post"</code>: البيانات ما تظهر في الرابط. <code>method="get"</code>: تظهر في الرابط بعد <code>?</code>.</li>
+  <li><code>action=""</code> (أو بدون action): يرسل النموذج لنفس الصفحة.</li>
+  <li><mark><code>isset($_POST['calc'])</code></mark> تتأكد إن الزر انضغط قبل ما نقرأ القيم، وإلا يطلع تحذير Undefined index أول ما تفتح الصفحة.</li>
+  <li>أزرار <b>radio</b> لها <b>نفس name</b> وقيم <code>value</code> مختلفة، فيرجع واحد فقط. والقائمة <code>&lt;select&gt;</code> ترجع <code>value</code> الخيار المختار.</li>
+</ul>
+<pre><code>&lt;form method="post"&gt;
+  Degree:
+  &lt;input type="radio" name="degree" value="phd"&gt; Phd
+  &lt;input type="radio" name="degree" value="master"&gt; Master
+  Hours: &lt;input type="number" name="hours"&gt;
+  &lt;input type="submit" name="calc" value="Calc"&gt;
+&lt;/form&gt;
+
+&lt;?php
+if (isset($_POST['calc'])) {
+    $degree = $_POST['degree'];
+    $hours  = $_POST['hours'];
+    echo "$degree - $hours";
+}
+?&gt;</code></pre>
+<div class="trap"><b>انتبه</b>لو المستخدم ما اختار أي radio، ما ينرسل <code>degree</code> أصلاً. تحقق بـ <code>isset($_POST['degree'])</code> قبل استخدامه. وحلول تمرينَي الفورم في قسم المسائل تحت.</div>
+
+<h2 id="p7">حلول المعامل</h2>
+<details><summary>Lab 2: الحسابات (1 إلى 8)</summary>
+<pre><code>&lt;?php
+// 1
+$a = 10; $b = 3;
+echo "sum = " . ($a + $b) . "&lt;br&gt;";
+echo "sub = " . ($a - $b) . "&lt;br&gt;";
+echo "mul = " . ($a * $b) . "&lt;br&gt;";
+echo "div = " . ($a / $b) . "&lt;br&gt;";
+echo "rem = " . ($a % $b) . "&lt;br&gt;";
+
+// 2
+$x = 70; $y = 80; $z = 90;
+echo "The average is " . (($x + $y + $z) / 3) . "&lt;br&gt;";
+
+// 3 محيط المستطيل
+$w = 5; $l = 8;
+echo "P = " . (2 * ($w + $l)) . "&lt;br&gt;";      // 26
+
+// 4 مساحة الدائرة = π × r²
+$r = 7;
+echo "Area = " . (3.14 * $r * $r) . "&lt;br&gt;";   // 153.86
+
+// 5 الفاتورة مع ضريبة 15%
+$price = 200;
+echo "Total = " . ($price + $price * 0.15) . "&lt;br&gt;";   // 230
+
+// 6 الراتب بعد خصم التأمينات 10%
+$salary = 8000;
+echo "Net = " . ($salary - $salary * 0.10) . "&lt;br&gt;";   // 7200
+
+// 7 البنزين
+$liters = 300 / 15;            // 20
+$cost   = $liters * 2.33;      // 46.6
+echo "Liters = $liters, Cost = $cost &lt;br&gt;";
+
+// 8 التمويل
+$amount = 100000; $rate = 5; $years = 4;
+$interest = $amount * $rate / 100 * $years;   // 20000
+$total    = $amount + $interest;              // 120000
+$monthly  = $total / ($years * 12);           // 2500
+echo "Interest = $interest &lt;br&gt; Total = $total &lt;br&gt; Monthly = $monthly";
+?&gt;</code></pre>
+<p>ملاحظة: في ورقة Lab 2 قانون مساحة الدائرة مكتوب <code>r * π</code>، والصحيح <code>π × r²</code>.</p></details>
+<details><summary>Lab 3: زوجي/فردي، الأكبر من ثلاثة، التقدير</summary>
+<pre><code>&lt;?php
+// 1
+$n = 7;
+if ($n % 2 == 0) echo "even"; else echo "odd";
+
+// 2
+$x = 10; $y = 200; $z = 300;
+if ($x > $y && $x > $z)      echo "x = $x is the greatest";
+elseif ($y > $x && $y > $z)  echo "y = $y is the greatest";
+else                         echo "z = $z is the greatest";
+
+// 3
+$mark = 85;
+if ($mark < 0 || $mark > 100) echo "Invalid mark";
+elseif ($mark >= 90) echo "A";
+elseif ($mark >= 80) echo "B";
+elseif ($mark >= 70) echo "C";
+elseif ($mark >= 60) echo "D";
+else echo "F";
+?&gt;</code></pre></details>
+<details><summary>Lab 4: الحلقات (1 إلى 6)</summary>
+<pre><code>&lt;?php
+// 1 من 10 إلى 20 بـ while
+$i = 10;
+while ($i <= 20) { echo $i . "&lt;br&gt;"; $i++; }
+
+// 2 مجموع 1 إلى 9
+$sum = 0;
+for ($i = 1; $i <= 9; $i++) $sum += $i;
+echo "Sum = $sum &lt;br&gt;";                  // 45
+
+// 3 الزوجية بين 1 والعدد
+$n = 15;
+for ($i = 2; $i <= $n; $i += 2) echo $i . " ";
+
+// 4 الأكبر أس الأصغر
+$a = 2; $b = 5;
+if ($a > 0 && $b > 0) {
+    $big = max($a, $b); $small = min($a, $b);
+    $result = 1;
+    for ($i = 1; $i <= $small; $i++) $result *= $big;
+    echo "$big ^ $small = $result";        // 5 ^ 2 = 25
+} else {
+    echo "Numbers must be greater than zero";
+}
+
+// 5 المضروب
+$n = 5; $fact = 1;
+for ($i = 1; $i <= $n; $i++) $fact *= $i;
+echo "$n! = $fact";                        // 120
+
+// 6 المثلث
+for ($i = 1; $i <= 5; $i++) {
+    for ($j = 1; $j <= $i; $j++) echo "*";
+    echo "&lt;br&gt;";
+}
+for ($i = 4; $i >= 1; $i--) {
+    for ($j = 1; $j <= $i; $j++) echo "*";
+    echo "&lt;br&gt;";
+}
+?&gt;</code></pre></details>
+<details><summary>تمرين المحاضرة 1: بيانات المتدرب بالألوان</summary>
+<pre><code>&lt;?php
+/* الاسم: ...
+   الرقم الجامعي: ... */
+$id = 4410123; $name = "Fahad"; $email = "f@mail.com"; $gpa = 4.2;
+echo "&lt;font size='5' color='red'&gt;";
+echo "رقم المتدرب: $id &lt;br&gt;اسم المتدرب: $name &lt;br&gt;";
+echo "ايميل المتدرب: $email &lt;br&gt;المعدل: $gpa &lt;br&gt;&lt;/font&gt;";
+
+$email = "fahad@tvtc.sa"; $gpa = 4.5;
+echo "&lt;font size='5' color='blue'&gt;";
+echo "رقم المتدرب: $id &lt;br&gt;اسم المتدرب: $name &lt;br&gt;";
+echo "ايميل المتدرب: $email &lt;br&gt;المعدل: $gpa &lt;/font&gt;";
+// ............ النهاية .............
+?&gt;</code></pre></details>

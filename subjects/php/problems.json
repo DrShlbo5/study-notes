@@ -1,0 +1,299 @@
+{
+ "title": "مسائل PHP للحل",
+ "intro": "مسائل بنفس أسلوب معامل PHP. تحت كل مسألة مكتوب وش تحتاج فيها (متغيرات، if، switch، حلقة...). اكتب حلك في المربع (ينحفظ في متصفحك)، وجرّبه على WampServer، وبعدها افتح الحل وقارن.",
+ "codePlaceholder": "<?php\n  // اكتب حلك هنا\n?>",
+ "tags": {
+  "vars": "متغيرات",
+  "math": "عمليات حسابية",
+  "if": "if",
+  "switch": "switch",
+  "for": "for",
+  "while": "while",
+  "do": "do..while",
+  "nested": "حلقات متداخلة",
+  "form": "Forms"
+ },
+ "items": [
+  {
+   "t": "مساحة ومحيط المربع",
+   "lvl": "Lab 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "عرّف متغيراً لطول ضلع مربع = 6، ثم احسب واطبع المساحة والمحيط بهذا الشكل:\nArea = ...\nPerimeter = ...",
+   "h": "المساحة = الضلع × الضلع، والمحيط = 4 × الضلع. استخدم <br> بين السطرين.",
+   "s": "<?php\n$side = 6;\n$area = $side * $side;\n$perimeter = 4 * $side;\necho \"Area = $area <br>\";\necho \"Perimeter = $perimeter\";\n?>"
+  },
+  {
+   "t": "تحويل درجة الحرارة",
+   "lvl": "Lab 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "درجة الحرارة 35 مئوية. حوّلها إلى فهرنهايت واطبع النتيجة.\nالقانون: F = C × 1.8 + 32",
+   "h": "متغيرين فقط: واحد للمئوي وواحد للنتيجة.",
+   "s": "<?php\n$c = 35;\n$f = $c * 1.8 + 32;\necho \"$c C = $f F\";     // 95\n?>"
+  },
+  {
+   "t": "فاتورة مشتريات",
+   "lvl": "Lab 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "سعر القطعة 45 ريال والكمية 4. احسب: المجموع قبل الضريبة، وقيمة الضريبة 15%، والإجمالي بعد الضريبة.",
+   "h": "المجموع = السعر × الكمية. الضريبة = المجموع × 0.15. الإجمالي = المجموع + الضريبة.",
+   "s": "<?php\n$price = 45; $qty = 4;\n$subtotal = $price * $qty;        // 180\n$tax = $subtotal * 0.15;          // 27\n$total = $subtotal + $tax;        // 207\necho \"Subtotal = $subtotal <br> Tax = $tax <br> Total = $total\";\n?>"
+  },
+  {
+   "t": "تحويل الدقائق",
+   "lvl": "Lab 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "عندك 135 دقيقة. حوّلها إلى ساعات ودقائق واطبع: 2 hours and 15 minutes",
+   "h": "الساعات = القسمة الصحيحة على 60 (floor أو intdiv). الدقائق المتبقية = باقي القسمة %.",
+   "s": "<?php\n$minutes = 135;\n$hours = intdiv($minutes, 60);    // 2   أو floor($minutes / 60)\n$rest  = $minutes % 60;           // 15\necho \"$hours hours and $rest minutes\";\n?>"
+  },
+  {
+   "t": "القرض الشخصي",
+   "lvl": "Lab 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "مبلغ القرض 60000 ريال، ونسبة الفائدة السنوية الثابتة 3%، والمدة 5 سنوات.\nاحسب واطبع: مبلغ الفائدة، والمبلغ الإجمالي الواجب سداده، والقسط الشهري.",
+   "h": "الفائدة = المبلغ × النسبة ÷ 100 × السنوات. الإجمالي = المبلغ + الفائدة. القسط = الإجمالي ÷ (السنوات × 12). ما تحتاج if ولا حلقة.",
+   "s": "<?php\n$loan = 60000; $rate = 3; $years = 5;\n$interest = $loan * $rate / 100 * $years;   // 9000\n$total    = $loan + $interest;              // 69000\n$monthly  = $total / ($years * 12);         // 1150\necho \"Interest = $interest <br>\";\necho \"Total = $total <br>\";\necho \"Monthly = $monthly\";\n?>"
+  },
+  {
+   "t": "موجب أو سالب أو صفر",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "if"
+   ],
+   "q": "عرّف متغيراً لعدد، واطبع هل هو موجب أو سالب أو صفر.",
+   "h": "ثلاث حالات = if ثم elseif ثم else.",
+   "s": "<?php\n$n = -7;\nif ($n > 0)      echo \"Positive\";\nelseif ($n < 0)  echo \"Negative\";\nelse             echo \"Zero\";\n?>"
+  },
+  {
+   "t": "الأصغر من ثلاثة أعداد",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "if"
+   ],
+   "q": "عندك ثلاثة أعداد x و y و z. اطبع أصغرها بهذا الشكل: The smallest is ...",
+   "h": "إما شروط مع && لكل عدد، أو افترض أن الأصغر x ثم قارنه بالباقي.",
+   "s": "<?php\n$x = 40; $y = 15; $z = 27;\n$min = $x;\nif ($y < $min) $min = $y;\nif ($z < $min) $min = $z;\necho \"The smallest is $min\";\n?>"
+  },
+  {
+   "t": "خصم الفاتورة",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "math",
+    "if"
+   ],
+   "q": "قيمة الفاتورة في متغير. إذا كانت 500 أو أكثر خصم 20%، وإذا من 200 إلى أقل من 500 خصم 10%، وأقل من 200 بدون خصم.\nاطبع قيمة الخصم والمبلغ بعد الخصم.",
+   "h": "حدد نسبة الخصم بـ if / elseif / else، ثم احسب بعدها مرة واحدة.",
+   "s": "<?php\n$bill = 350;\nif ($bill >= 500)      $discount = 0.20;\nelseif ($bill >= 200)  $discount = 0.10;\nelse                   $discount = 0;\n$amount = $bill * $discount;\necho \"Discount = $amount <br> To pay = \" . ($bill - $amount);\n?>"
+  },
+  {
+   "t": "هل السنة كبيسة؟",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "if"
+   ],
+   "q": "السنة كبيسة إذا كانت تقبل القسمة على 4 ولا تقبل القسمة على 100، أو تقبل القسمة على 400. اطبع Leap year أو Not leap year.",
+   "h": "شرط واحد فيه && و ||، وتستخدم % == 0 للقابلية للقسمة.",
+   "s": "<?php\n$year = 2024;\nif (($year % 4 == 0 && $year % 100 != 0) || $year % 400 == 0)\n    echo \"$year is a leap year\";\nelse\n    echo \"$year is not a leap year\";\n?>"
+  },
+  {
+   "t": "اسم اليوم",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "switch"
+   ],
+   "q": "متغير فيه رقم اليوم من 1 إلى 7 (1 = الأحد). اطبع اسم اليوم، وإذا الرقم غير صحيح اطبع Invalid day.",
+   "h": "قيمة واحدة تُقارن بقيم ثابتة = switch، ولا تنسى break وdefault.",
+   "s": "<?php\n$day = 3;\nswitch ($day) {\n    case 1: echo \"Sunday\"; break;\n    case 2: echo \"Monday\"; break;\n    case 3: echo \"Tuesday\"; break;\n    case 4: echo \"Wednesday\"; break;\n    case 5: echo \"Thursday\"; break;\n    case 6: echo \"Friday\"; break;\n    case 7: echo \"Saturday\"; break;\n    default: echo \"Invalid day\";\n}\n?>"
+  },
+  {
+   "t": "آلة حاسبة",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "switch",
+    "if"
+   ],
+   "q": "عندك عددين ورمز عملية في متغير ($op = '/'). اطبع العملية والنتيجة مثل: 20 / 4 = 5\nوإذا كانت قسمة والعدد الثاني صفر اطبع: Cannot divide by zero",
+   "h": "switch على الرمز، وداخل حالة / تحتاج if للتحقق من الصفر.",
+   "s": "<?php\n$a = 20; $b = 4; $op = '/';\nswitch ($op) {\n    case '+': echo \"$a + $b = \" . ($a + $b); break;\n    case '-': echo \"$a - $b = \" . ($a - $b); break;\n    case '*': echo \"$a * $b = \" . ($a * $b); break;\n    case '/':\n        if ($b == 0) echo \"Cannot divide by zero\";\n        else echo \"$a / $b = \" . ($a / $b);\n        break;\n    default: echo \"Invalid operation\";\n}\n?>"
+  },
+  {
+   "t": "التقدير بـ switch(true)",
+   "lvl": "Lab 3",
+   "tags": [
+    "vars",
+    "switch"
+   ],
+   "q": "حل سؤال تقدير الطالب (A إلى F) لكن باستخدام switch بدل if. وتأكد أن الدرجة بين 0 و100.",
+   "h": "switch (true) وكل case فيه شرط مثل ($mark >= 90).",
+   "s": "<?php\n$mark = 77;\nswitch (true) {\n    case ($mark < 0 || $mark > 100): echo \"Invalid mark\"; break;\n    case ($mark >= 90): echo \"A\"; break;\n    case ($mark >= 80): echo \"B\"; break;\n    case ($mark >= 70): echo \"C\"; break;\n    case ($mark >= 60): echo \"D\"; break;\n    default: echo \"F\";\n}\n?>"
+  },
+  {
+   "t": "جدول الضرب",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "for"
+   ],
+   "q": "اطبع جدول ضرب العدد 7 من 1 إلى 10 بهذا الشكل: 7 x 1 = 7",
+   "h": "عدد التكرار معروف (10) = for.",
+   "s": "<?php\n$n = 7;\nfor ($i = 1; $i <= 10; $i++) {\n    echo \"$n x $i = \" . ($n * $i) . \"<br>\";\n}\n?>"
+  },
+  {
+   "t": "مجموع الأعداد الفردية",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "for",
+    "if"
+   ],
+   "q": "احسب مجموع الأعداد الفردية من 1 إلى n حيث n = 15، واطبع الأعداد ثم المجموع.",
+   "h": "for من 1 إلى n، وداخلها if ($i % 2 != 0). أو ابدأ من 1 وزد 2 كل مرة بدون if.",
+   "s": "<?php\n$n = 15; $sum = 0;\nfor ($i = 1; $i <= $n; $i++) {\n    if ($i % 2 != 0) {\n        echo $i . \" \";\n        $sum += $i;\n    }\n}\necho \"<br>Sum = $sum\";     // 64\n?>"
+  },
+  {
+   "t": "العد التنازلي",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "while"
+   ],
+   "q": "اطبع الأعداد من 20 إلى 1 تنازلياً باستخدام while، وفي النهاية اطبع: Done",
+   "h": "ابدأ المتغير من 20 وأنقصه بـ -- داخل الحلقة.",
+   "s": "<?php\n$i = 20;\nwhile ($i >= 1) {\n    echo $i . \" \";\n    $i--;\n}\necho \"<br>Done\";\n?>"
+  },
+  {
+   "t": "عدد أرقام العدد",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "while"
+   ],
+   "q": "عندك عدد مثل 58213. احسب كم رقم فيه (الناتج 5) باستخدام while بدون دوال جاهزة.",
+   "h": "طالما العدد أكبر من 0: اقسمه قسمة صحيحة على 10 وزد العداد.",
+   "s": "<?php\n$num = 58213; $count = 0;\nwhile ($num > 0) {\n    $num = intdiv($num, 10);\n    $count++;\n}\necho \"Digits = $count\";\n?>"
+  },
+  {
+   "t": "عكس العدد",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "math",
+    "while"
+   ],
+   "q": "اعكس العدد 1234 ليصبح 4321 واطبعه.",
+   "h": "آخر رقم = % 10. الناتج = الناتج × 10 + آخر رقم. ثم احذف آخر رقم بالقسمة الصحيحة على 10.",
+   "s": "<?php\n$num = 1234; $rev = 0;\nwhile ($num > 0) {\n    $digit = $num % 10;\n    $rev = $rev * 10 + $digit;\n    $num = intdiv($num, 10);\n}\necho $rev;    // 4321\n?>"
+  },
+  {
+   "t": "مجموع حتى يتجاوز 100",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "do"
+   ],
+   "q": "اجمع الأعداد 1 + 2 + 3 + ... وتوقف أول ما يصير المجموع أكبر من 100. اطبع آخر عدد أضفته والمجموع. استخدم do..while.",
+   "h": "الشرط في do..while: استمر طالما المجموع <= 100.",
+   "s": "<?php\n$i = 0; $sum = 0;\ndo {\n    $i++;\n    $sum += $i;\n} while ($sum <= 100);\necho \"Last number = $i <br> Sum = $sum\";   // 14 و 105\n?>"
+  },
+  {
+   "t": "المضروب مع التحقق",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "if",
+    "for"
+   ],
+   "q": "احسب مضروب n = 6. إذا كان n سالباً اطبع رسالة خطأ بدل الحساب.",
+   "h": "if للتحقق أولاً، ثم for تضرب من 1 إلى n في متغير يبدأ بـ 1 (وليس 0).",
+   "s": "<?php\n$n = 6;\nif ($n < 0) {\n    echo \"Factorial is not defined for negative numbers\";\n} else {\n    $fact = 1;\n    for ($i = 1; $i <= $n; $i++) $fact *= $i;\n    echo \"$n! = $fact\";     // 720\n}\n?>"
+  },
+  {
+   "t": "أقساط القرض سنة بسنة",
+   "lvl": "Lab 4",
+   "tags": [
+    "vars",
+    "math",
+    "for"
+   ],
+   "q": "قرض 24000 ريال على 4 سنوات بدون فائدة. اطبع المتبقي من القرض في نهاية كل سنة:\nYear 1: remaining 18000\n...\nYear 4: remaining 0",
+   "h": "القسط السنوي = المبلغ ÷ السنوات. حلقة for على السنوات، وكل دورة تنقص القسط من المتبقي.",
+   "s": "<?php\n$loan = 24000; $years = 4;\n$yearly = $loan / $years;        // 6000\n$remaining = $loan;\nfor ($y = 1; $y <= $years; $y++) {\n    $remaining -= $yearly;\n    echo \"Year $y: remaining $remaining <br>\";\n}\n?>"
+  },
+  {
+   "t": "مستطيل نجوم",
+   "lvl": "Lab 4",
+   "tags": [
+    "nested",
+    "for"
+   ],
+   "q": "اطبع مستطيلاً من النجوم 4 صفوف × 6 أعمدة.",
+   "h": "حلقة خارجية للصفوف وداخلية للأعمدة، و<br> بعد الداخلية.",
+   "s": "<?php\nfor ($r = 1; $r <= 4; $r++) {\n    for ($c = 1; $c <= 6; $c++) echo \"*\";\n    echo \"<br>\";\n}\n?>"
+  },
+  {
+   "t": "مثلث أرقام",
+   "lvl": "Lab 4",
+   "tags": [
+    "nested",
+    "for"
+   ],
+   "q": "اطبع الشكل التالي:\n1\n1 2\n1 2 3\n1 2 3 4\n1 2 3 4 5",
+   "h": "الداخلية تمشي من 1 إلى رقم الصف، وتطبع متغير الداخلية.",
+   "s": "<?php\nfor ($i = 1; $i <= 5; $i++) {\n    for ($j = 1; $j <= $i; $j++) echo $j . \" \";\n    echo \"<br>\";\n}\n?>"
+  },
+  {
+   "t": "مثلث مقلوب",
+   "lvl": "Lab 4",
+   "tags": [
+    "nested",
+    "for"
+   ],
+   "q": "اطبع:\n*****\n****\n***\n**\n*",
+   "h": "الخارجية تنازلية من 5 إلى 1، والداخلية من 1 إلى رقم الصف.",
+   "s": "<?php\nfor ($i = 5; $i >= 1; $i--) {\n    for ($j = 1; $j <= $i; $j++) echo \"*\";\n    echo \"<br>\";\n}\n?>"
+  },
+  {
+   "t": "حاسبة أجر أعضاء هيئة التدريب",
+   "lvl": "تمارين Forms 1",
+   "tags": [
+    "form",
+    "if"
+   ],
+   "q": "سوّ نموذج (form) لحساب أجر عضو هيئة التدريب:\n• الدكتوراه 500 ريال للساعة، والماجستير 300 ريال للساعة.\n• الساعات المسموحة: الدكتور من 10 إلى 120، والمحاضر (ماجستير) من 10 إلى 100.\n• إذا عدد الساعات غير صحيح تظهر رسالة.\nالنموذج فيه: Degree (radio: Phd / Master) و Hours وزر Calc.",
+   "h": "radio بنفس الاسم degree. بعد الضغط: حدد السعر والحد الأعلى حسب الدرجة، ثم تحقق إن الساعات بين 10 والحد الأعلى.",
+   "s": "<html>\n<body>\n<fieldset>\n<legend>Fees Calculator</legend>\n<form method=\"post\">\n  Degree:\n  <input type=\"radio\" name=\"degree\" value=\"phd\"> Phd\n  <input type=\"radio\" name=\"degree\" value=\"master\"> Master\n  <br><br>\n  Hours : <input type=\"number\" name=\"hours\">\n  <br><br>\n  <input type=\"submit\" name=\"calc\" value=\"Calc\">\n</form>\n</fieldset>\n\n<?php\nif (isset($_POST['calc'])) {\n    if (!isset($_POST['degree'])) {\n        echo \"اختر الدرجة العلمية\";\n    } else {\n        $degree = $_POST['degree'];\n        $hours  = $_POST['hours'];\n\n        if ($degree == \"phd\") { $rate = 500; $max = 120; }\n        else                  { $rate = 300; $max = 100; }\n\n        if ($hours < 10 || $hours > $max) {\n            echo \"عدد الساعات غير صحيح، المسموح من 10 إلى $max\";\n        } else {\n            $fees = $hours * $rate;\n            echo \"الأجر = $fees ريال\";\n        }\n    }\n}\n?>\n</body>\n</html>"
+  },
+  {
+   "t": "باقات الإنترنت",
+   "lvl": "تمارين Forms 2",
+   "tags": [
+    "form",
+    "switch"
+   ],
+   "q": "سوّ نموذج لاشتراكات الإنترنت فيه نوع الخدمة (radio: DSL / Fiber) والمدة (select: 3 months / 6 months) وزر Price.\nالأسعار:\nDSL – 3 months = 200\nDSL – 6 months = 350\nFiber – 3 months = 300\nFiber – 6 months = 550\nبعد الضغط يظهر السعر مع الاختيارات، مثل: 3 months (DSL) 200 SAR",
+   "h": "ادمج النوع والمدة في نص واحد مثل \"DSL-3\" واستخدم switch، أو if متداخلة.",
+   "s": "<html>\n<body>\n<fieldset>\n<legend>Internet Packages</legend>\n<form method=\"post\">\n  Type:\n  <input type=\"radio\" name=\"type\" value=\"DSL\" checked> DSL\n  <input type=\"radio\" name=\"type\" value=\"Fiber\"> Fiber\n  <br><br>\n  Term:\n  <select name=\"term\">\n    <option value=\"3\">3 months</option>\n    <option value=\"6\">6 months</option>\n  </select>\n  <br><br>\n  <input type=\"submit\" name=\"price\" value=\"Price\">\n</form>\n\n<?php\nif (isset($_POST['price'])) {\n    $type = $_POST['type'];\n    $term = $_POST['term'];\n\n    switch (\"$type-$term\") {\n        case \"DSL-3\":   $cost = 200; break;\n        case \"DSL-6\":   $cost = 350; break;\n        case \"Fiber-3\": $cost = 300; break;\n        case \"Fiber-6\": $cost = 550; break;\n        default:        $cost = 0;\n    }\n    echo \"$term months ($type) $cost SAR\";\n}\n?>\n</fieldset>\n</body>\n</html>"
+  }
+ ]
+}

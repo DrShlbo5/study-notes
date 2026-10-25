@@ -1,0 +1,8 @@
+{
+  "title": "اسم المادة كما يظهر في التبويب",
+  "short": "اسم مختصر",
+  "color": "#1f5fbf",
+  "colorDark": "#7aa7ff",
+  "order": 99,
+  "sources": ["اسم ملف PDF الأول.pdf"]
+}

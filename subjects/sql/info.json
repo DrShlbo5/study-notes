@@ -1,0 +1,18 @@
+{
+  "title": "قواعد البيانات PL/SQL",
+  "color": "#0f766e",
+  "colorDark": "#2dd4bf",
+  "order": 2,
+  "short": "قواعد البيانات",
+  "sources": [
+    "Lab2sql.pdf",
+    "Lab3sql.pdf",
+    "Lab4sql.pdf",
+    "Lab 5sql.pdf",
+    "Lab 6sql.pdf",
+    "Tut2sql.pdf",
+    "tut3sql.pdf",
+    "tut4sql.pdf",
+    "Tut5sql.pdf"
+  ]
+}

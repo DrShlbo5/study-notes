@@ -1,0 +1,599 @@
+{
+ "title": "مسائل معامل جافا للحل",
+ "intro": "كل تمارين المعامل اللي ما انحلت في المذكرة فوق. تحت كل مسألة مكتوب وش تحتاج فيها. اكتب حلك في المربع (ينحفظ في متصفحك)، وجرّبه على Eclipse أو NetBeans، وبعدها افتح الحل وقارن.",
+ "codePlaceholder": "public class Main {\n    public static void main(String[] args) {\n        // اكتب حلك هنا\n    }\n}",
+ "tags": {
+  "print": "الطباعة",
+  "vars": "متغيرات",
+  "math": "عمليات حسابية",
+  "scanner": "Scanner",
+  "if": "if",
+  "switch": "switch",
+  "loop": "حلقات",
+  "method": "دوال",
+  "nested": "حلقات متداخلة"
+ },
+ "items": [
+  {
+   "t": "اسمك بالعربي والإنجليزي",
+   "lvl": "Lab 2",
+   "tags": [
+    "print"
+   ],
+   "q": "اكتب برنامج يطبع اسمك بالعربي والإنجليزي في سطرين مختلفين.",
+   "h": "println تنزل سطر بعد الطباعة.",
+   "s": "public class MyName {\n    public static void main(String[] args) {\n        System.out.println(\"محمد\");\n        System.out.println(\"Mohammed\");\n    }\n}"
+  },
+  {
+   "t": "الاسم والتخصص مع تعليقات",
+   "lvl": "Lab 2",
+   "tags": [
+    "print"
+   ],
+   "q": "اكتب برنامج يطبع اسمك وتخصصك، وأضف تعليق // يوضح وظيفة كل سطر.",
+   "h": "التعليق // ما يأثر على التنفيذ.",
+   "s": "public class NameMajor {\n    public static void main(String[] args) {\n        System.out.println(\"Name: Mohammed\");   // يطبع الاسم\n        System.out.println(\"Major: Programming\"); // يطبع التخصص\n    }\n}"
+  },
+  {
+   "t": "تنسيق الكود",
+   "lvl": "Lab 2",
+   "tags": [
+    "print"
+   ],
+   "q": "نسّق البرنامج التالي بحيث تكون الأقواس والمسافات منظمة في بداية الأسطر:\npublic class Test{ public static void main(String[]args){ int x=10; int y=20; int sum=x+y; System.out.println(\"Sum = \"+sum); } }",
+   "h": "كل كتلة { } تزيد إزاحة السطور اللي داخلها مسافة Tab.",
+   "s": "public class Test {\n    public static void main(String[] args) {\n        int x = 10;\n        int y = 20;\n        int sum = x + y;\n        System.out.println(\"Sum = \" + sum);   // Sum = 30\n    }\n}"
+  },
+  {
+   "t": "تعريف متغيرات بأنواع مختلفة",
+   "lvl": "Lab 4 تمرين 1",
+   "tags": [
+    "vars"
+   ],
+   "q": "عرّف متغيرات: نص للاسم، عدد صحيح للعمر، عشري للمعدل، حرف لأول حرف من الاسم، وقيمة منطقية (هل أنت طالب). ثم اطبعها.",
+   "h": "String و int و double و char و boolean. الحرف بين ' ' والنص بين \" \".",
+   "s": "public class DataTypesExample1 {\n    public static void main(String[] args) {\n        String name = \"Khalid\";\n        int age = 20;\n        double gpa = 3.75;\n        char firstLetter = 'K';\n        boolean isStudent = true;\n        System.out.println(\"الاسم: \" + name);\n        System.out.println(\"العمر: \" + age);\n        System.out.println(\"المعدل: \" + gpa);\n        System.out.println(\"الحرف الأول: \" + firstLetter);\n        System.out.println(\"طالب: \" + isStudent);\n    }\n}"
+  },
+  {
+   "t": "العمليات الحسابية على عددين",
+   "lvl": "Lab 4 تمرين 2",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "عرّف عددين صحيحين، ونفّذ الجمع والطرح والضرب والقسمة (صحيحة وعشرية) وباقي القسمة، واطبع النتائج.\nسؤال: وش الفرق بين القسمة الصحيحة والعشرية؟ وش اسم حالة 7 / 2 = 3؟",
+   "h": "(double) قبل القسمة يخلي الناتج عشري.",
+   "s": "public class ArithmeticOperations {\n    public static void main(String[] args) {\n        int num1 = 9, num2 = 2;\n        System.out.println(\"الجمع: \" + (num1 + num2));          // 11\n        System.out.println(\"الطرح: \" + (num1 - num2));          // 7\n        System.out.println(\"الضرب: \" + (num1 * num2));          // 18\n        System.out.println(\"قسمة صحيحة: \" + (num1 / num2));     // 4\n        System.out.println(\"قسمة عشرية: \" + ((double) num1 / num2)); // 4.5\n        System.out.println(\"الباقي: \" + (num1 % num2));         // 1\n        // القسمة الصحيحة تحذف الجزء العشري (Integer Division) بسبب نوع int\n    }\n}"
+  },
+  {
+   "t": "تتبع Prefix و Postfix",
+   "lvl": "Lab 4 تمرين 3",
+   "tags": [
+    "math"
+   ],
+   "q": "وش يطبع البرنامج؟\nint x = 5;\n++x ثم x++ ثم --x ثم x-- (اطبع قيمة العملية وقيمة x بعدها كل مرة)",
+   "h": "القبلية تعدّل ثم تستخدم، والبعدية تستخدم ثم تعدّل.",
+   "s": "public class PrefixPostfixExample {\n    public static void main(String[] args) {\n        int x = 5;\n        System.out.println(\"الأصلية: \" + x);      // 5\n        System.out.println(\"++x = \" + (++x));     // 6\n        System.out.println(\"بعد ++x: \" + x);      // 6\n        System.out.println(\"x++ = \" + (x++));     // 6\n        System.out.println(\"بعد x++: \" + x);      // 7\n        System.out.println(\"--x = \" + (--x));     // 6\n        System.out.println(\"بعد --x: \" + x);      // 6\n        System.out.println(\"x-- = \" + (x--));     // 6\n        System.out.println(\"النهائية: \" + x);     // 5\n    }\n}"
+  },
+  {
+   "t": "رقم مباشر أو متغير",
+   "lvl": "Lab 4 تمرين 4",
+   "tags": [
+    "print",
+    "vars"
+   ],
+   "q": "وش الفرق بين System.out.println(34); وطباعة متغير int a = 34; ثم System.out.println(a);؟",
+   "h": "الناتج واحد، الفرق في مصدر القيمة.",
+   "s": "// الاثنين يطبعون 34\n// الأول قيمة ثابتة (Literal) مكتوبة مباشرة\n// الثاني قيمة مخزنة في الذاكرة باسم a ونقدر نغيرها ونستخدمها أكثر من مرة\nSystem.out.println(34);\nint a = 34;\nSystem.out.println(a);"
+  },
+  {
+   "t": "3 * 2 / 4",
+   "lvl": "Lab 4 تمرين 5",
+   "tags": [
+    "math"
+   ],
+   "q": "وش يطبع كل سطر؟ وش اسم هذا الخطأ؟\nSystem.out.println(\"3 * 2 / 4 is \" + 3 * 2 / 4);\nSystem.out.println(\"3 * 2 / 4 is \" + 3.0 * 2 / 4);",
+   "h": "الضرب والقسمة تتنفذ قبل الربط مع النص.",
+   "s": "// السطر الأول: 3 * 2 / 4 is 1     (6 / 4 قسمة صحيحة = 1)\n// السطر الثاني: 3 * 2 / 4 is 1.5  (3.0 تخلي العملية عشرية)\n// الخطأ اسمه خطأ نوع البيانات (Type Error) / Integer Division"
+  },
+  {
+   "t": "رسالة ترحيب بالاسم والعمر",
+   "lvl": "Lab 4 تمرين 6",
+   "tags": [
+    "vars",
+    "print"
+   ],
+   "q": "عرّف متغيرات لاسمك وعمرك بأسماء وصفية، واطبع:\nHello, Mr. khalid\nYou are 22 years old",
+   "h": "استخدم + للربط.",
+   "s": "public class Greeting {\n    public static void main(String[] args) {\n        String userName = \"khalid\";\n        int userAge = 22;\n        System.out.println(\"Hello, Mr. \" + userName);\n        System.out.println(\"You are \" + userAge + \" years old\");\n    }\n}"
+  },
+  {
+   "t": "مساحة المربع",
+   "lvl": "Lab 4 تمرين 7",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "احسب مساحة مربع طول ضلعه 7 سم. الضلع في متغير int، والمساحة في متغير آخر، ثم اطبع النتيجة.",
+   "h": "المساحة = الضلع × الضلع.",
+   "s": "public class SquareArea {\n    public static void main(String[] args) {\n        int side = 7;\n        int area = side * side;\n        System.out.println(\"Area = \" + area);   // 49\n    }\n}"
+  },
+  {
+   "t": "مساحة المستطيل",
+   "lvl": "Lab 4 تمرين 8",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "احسب مساحة مستطيل طوله 7 سم وعرضه 9 سم.",
+   "h": "المساحة = الطول × العرض.",
+   "s": "public class RectangleArea {\n    public static void main(String[] args) {\n        int length = 7, width = 9;\n        int area = length * width;\n        System.out.println(\"Area = \" + area);   // 63\n    }\n}"
+  },
+  {
+   "t": "مساحة الدائرة",
+   "lvl": "Lab 4 تمرين 9",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "احسب مساحة دائرة نصف قطرها 5 سم. القانون: π × نق² حيث π ≈ 3.14",
+   "h": "استخدم double لأن الناتج عشري.",
+   "s": "public class CircleArea {\n    public static void main(String[] args) {\n        double r = 5;\n        double area = 3.14 * r * r;\n        System.out.println(\"Area = \" + area);   // 78.5\n    }\n}"
+  },
+  {
+   "t": "مساحة المثلث",
+   "lvl": "Lab 4 تمرين 10",
+   "tags": [
+    "vars",
+    "math"
+   ],
+   "q": "احسب مساحة مثلث بمعلومية طول القاعدة والارتفاع (استخدم القيم اللي في ورقة المعمل).\nالقانون: (القاعدة × الارتفاع) ÷ 2",
+   "h": "لو القاعدة والارتفاع int، اقسم على 2.0 عشان ما تنحذف الكسور.",
+   "s": "public class TriangleArea {\n    public static void main(String[] args) {\n        double base = 9;     // طول القاعدة\n        double height = 5;   // الارتفاع (غيّره حسب الورقة)\n        double area = base * height / 2;\n        System.out.println(\"Area = \" + area);   // 22.5\n    }\n}"
+  },
+  {
+   "t": "إسناد قيمة لعدة متغيرات",
+   "lvl": "Lab 4 تمرين 11",
+   "tags": [
+    "vars"
+   ],
+   "q": "وش يطبع؟ وهل تقدر تعرّف المتغيرات بطريقة أخرى؟\nint i, j, k;\ni = j = k = 2;\nSystem.out.println(\"\\t i = \" + i + \"\\t j = \" + j + \"\\t k = \" + k);",
+   "h": "الإسناد المتسلسل يبدأ من اليمين.",
+   "s": "// يطبع:  i = 2   j = 2   k = 2  (بينها Tab)\n// الطريقة الثانية:\nint i = 2, j = 2, k = 2;"
+  },
+  {
+   "t": "byte و 129",
+   "lvl": "Lab 4 تمرين 12",
+   "tags": [
+    "vars"
+   ],
+   "q": "byte i, j, k;\ni = j = k = 127;\nلو كتبنا k = 129; وش يصير؟ ولماذا؟ وكيف نتجنب الخطأ؟",
+   "h": "مدى byte من -128 إلى 127.",
+   "s": "// خطأ ترجمة: incompatible types: possible lossy conversion from int to byte\n// السبب: 129 خارج مدى byte (-128 إلى 127)\n// الحل: نستخدم نوع أكبر مثل short أو int\nshort k = 129;"
+  },
+  {
+   "t": "مربع العدد",
+   "lvl": "Lab 5 تمرين 1",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب من المستخدم عدد صحيح، واطبع العدد ومربعه.",
+   "h": "nextInt()",
+   "s": "import java.util.Scanner;\n\npublic class Exercise1 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل عدد: \");\n        int number = input.nextInt();\n        int square = number * number;\n        System.out.println(\"العدد: \" + number);\n        System.out.println(\"مربع العدد: \" + square);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "من مئوي إلى فهرنهايت",
+   "lvl": "Lab 5 تمرين 2",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب درجة حرارة بالمئوي وحوّلها لفهرنهايت: F = 1.8 × C + 32",
+   "h": "nextDouble()",
+   "s": "import java.util.Scanner;\n\npublic class Exercise2 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل درجة الحرارة بالمئوي: \");\n        double c = input.nextDouble();\n        double f = 1.8 * c + 32;\n        System.out.println(\"بالفهرنهايت: \" + f);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "رسالة ترحيب بالاسم الكامل",
+   "lvl": "Lab 5 تمرين 3",
+   "tags": [
+    "scanner"
+   ],
+   "q": "اطلب من المستخدم اسمه الكامل واطبع رسالة ترحيب فيها الاسم.",
+   "h": "nextLine() تقرأ السطر كامل مع المسافات.",
+   "s": "import java.util.Scanner;\n\npublic class Exercise3 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل اسمك الكامل: \");\n        String name = input.nextLine();\n        System.out.println(\"مرحباً \" + name);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "عدد أحرف اسم المدينة",
+   "lvl": "Lab 5 تمرين 4",
+   "tags": [
+    "scanner"
+   ],
+   "q": "اطلب كلمة واحدة (اسم مدينة) واطبع عدد أحرفها.",
+   "h": "next() تقرأ كلمة، و length() ترجع عدد الأحرف.",
+   "s": "import java.util.Scanner;\n\npublic class Exercise4 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل اسم مدينة: \");\n        String city = input.next();\n        System.out.println(\"عدد الأحرف: \" + city.length());\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "إدخال كل الأنواع",
+   "lvl": "Lab 5 تمرين 5",
+   "tags": [
+    "scanner",
+    "vars"
+   ],
+   "q": "اطلب من المستخدم: الاسم (String)، العمر (int)، المعدل (double)، أول حرف (char)، هل أنت طالب (boolean). ثم اطبعها:\nالاسم: ...\nالعمر: ...\nالمعدل: ...\nالحرف الأول: ...\nطالب: ...",
+   "h": "الحرف: input.next().charAt(0) — والمنطقي: nextBoolean().",
+   "s": "import java.util.Scanner;\n\npublic class Exercise5 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل اسمك: \");\n        String name = input.nextLine();\n        System.out.print(\"ادخل عمرك: \");\n        int age = input.nextInt();\n        System.out.print(\"ادخل معدلك: \");\n        double gpa = input.nextDouble();\n        System.out.print(\"ادخل الحرف الأول من اسمك: \");\n        char firstLetter = input.next().charAt(0);\n        System.out.print(\"هل أنت طالب (true/false): \");\n        boolean isStudent = input.nextBoolean();\n        System.out.println(\"\\nالاسم: \" + name);\n        System.out.println(\"العمر: \" + age);\n        System.out.println(\"المعدل: \" + gpa);\n        System.out.println(\"الحرف الأول: \" + firstLetter);\n        System.out.println(\"طالب: \" + isStudent);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "الاسم والعمر بين نجوم",
+   "lvl": "Lab 5 تمرين 6",
+   "tags": [
+    "scanner",
+    "print"
+   ],
+   "q": "اطلب الاسم والعمر واطبعهم بهذا الشكل:\n***************\nالاسم: محمد\nالعمر: 20\n***************",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class Exercise6 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"الاسم: \");\n        String name = input.nextLine();\n        System.out.print(\"العمر: \");\n        int age = input.nextInt();\n        System.out.println(\"***************\");\n        System.out.println(\"الاسم: \" + name);\n        System.out.println(\"العمر: \" + age);\n        System.out.println(\"***************\");\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "مجموع رقمين",
+   "lvl": "Lab 5 تمرين 7 و 8",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب رقمين واطبع مجموعهما.\nتمرين 8: وش يصير لو أدخل المستخدم نص بدل رقم؟ وش نوع الخطأ؟",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class InputExample3 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"أدخل الرقم الأول: \");\n        int num1 = input.nextInt();\n        System.out.print(\"أدخل الرقم الثاني: \");\n        int num2 = input.nextInt();\n        System.out.println(\"المجموع: \" + (num1 + num2));\n        // تمرين 8: لو أدخل نص يطلع خطأ وقت التشغيل InputMismatchException\n        // والحل نتحقق أول بـ input.hasNextInt()\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "الاسم والعمر والتخصص",
+   "lvl": "Lab 5 تمرين 9",
+   "tags": [
+    "scanner",
+    "print"
+   ],
+   "q": "اطلب الاسم والعمر والتخصص واعرضها بشكل منسق.",
+   "h": "انتبه: بعد nextInt() استخدم nextLine() فاضية قبل قراءة نص كامل.",
+   "s": "import java.util.Scanner;\n\npublic class Exercise9 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"الاسم: \");\n        String name = input.nextLine();\n        System.out.print(\"العمر: \");\n        int age = input.nextInt();\n        input.nextLine();   // يمسح Enter المتبقي\n        System.out.print(\"التخصص: \");\n        String major = input.nextLine();\n        System.out.println(\"-------------------\");\n        System.out.println(\"الاسم:\\t\" + name);\n        System.out.println(\"العمر:\\t\" + age);\n        System.out.println(\"التخصص:\\t\" + major);\n        System.out.println(\"-------------------\");\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "ثلاث كلمات في سطر",
+   "lvl": "Lab 5 تمرين 10",
+   "tags": [
+    "scanner",
+    "print"
+   ],
+   "q": "اطلب ثلاث كلمات واعرضها في سطر واحد مفصولة بفواصل.",
+   "h": "next() ثلاث مرات.",
+   "s": "import java.util.Scanner;\n\npublic class Exercise10 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل ثلاث كلمات: \");\n        String w1 = input.next();\n        String w2 = input.next();\n        String w3 = input.next();\n        System.out.println(w1 + \", \" + w2 + \", \" + w3);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "حجم خزان الماء",
+   "lvl": "Lab 5 تمرين 11",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب ارتفاع وعرض وطول الخزان، واحسب الحجم = الارتفاع × الطول × العرض.",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class TankVolume {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"الارتفاع: \");\n        double h = input.nextDouble();\n        System.out.print(\"العرض: \");\n        double w = input.nextDouble();\n        System.out.print(\"الطول: \");\n        double l = input.nextDouble();\n        System.out.println(\"حجم الخزان = \" + (h * l * w));\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "صافي الراتب",
+   "lvl": "Lab 5 تمرين 12",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب: الراتب الأساسي، مجموع البدلات، مجموع الحسميات. واحسب خصم التقاعد 9% من الأساسي تلقائياً، ثم اطبع صافي الراتب.",
+   "h": "الصافي = الأساسي + البدلات − الحسميات − (الأساسي × 0.09)",
+   "s": "import java.util.Scanner;\n\npublic class NetSalary {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"الراتب الأساسي: \");\n        double basic = input.nextDouble();\n        System.out.print(\"مجموع البدلات: \");\n        double allowances = input.nextDouble();\n        System.out.print(\"مجموع الحسميات: \");\n        double deductions = input.nextDouble();\n        double retirement = basic * 0.09;\n        double net = basic + allowances - deductions - retirement;\n        System.out.println(\"خصم التقاعد: \" + retirement);\n        System.out.println(\"صافي الراتب: \" + net);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "أقساط السيارة",
+   "lvl": "Lab 5 تمرين 13",
+   "tags": [
+    "scanner",
+    "math"
+   ],
+   "q": "اطلب قيمة السيارة. نسبة الفائدة 4.5% سنوياً لمدة 5 سنوات (60 شهر).\nاحسب: إجمالي الفائدة، الإجمالي بعد الفائدة، والقسط الشهري.",
+   "h": "الفائدة = القيمة × 0.045 × 5 — الإجمالي = القيمة + الفائدة — القسط = الإجمالي ÷ 60",
+   "s": "import java.util.Scanner;\n\npublic class CarLoan {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"قيمة السيارة: \");\n        double price = input.nextDouble();\n        double interest = price * 0.045 * 5;\n        double total = price + interest;\n        double monthly = total / 60;\n        System.out.println(\"إجمالي الفائدة: \" + interest);\n        System.out.println(\"الإجمالي بعد الفائدة: \" + total);\n        System.out.println(\"القسط الشهري: \" + monthly);\n        // مثال: 100000 → فائدة 22500، إجمالي 122500، قسط 2041.67\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "آلة حاسبة بسيطة",
+   "lvl": "Lab 5 تمرين 14",
+   "tags": [
+    "scanner",
+    "switch"
+   ],
+   "q": "اطلب: العدد الأول، ثم رمز العملية (+ - * /)، ثم العدد الثاني. واطبع العملية ونتيجتها.",
+   "h": "الرمز يقرأ بـ input.next().charAt(0).",
+   "s": "import java.util.Scanner;\n\npublic class Calc {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"العدد الأول: \");\n        double a = input.nextDouble();\n        System.out.print(\"العملية (+ - * /): \");\n        char op = input.next().charAt(0);\n        System.out.print(\"العدد الثاني: \");\n        double b = input.nextDouble();\n        switch (op) {\n            case '+': System.out.println(a + \" + \" + b + \" = \" + (a + b)); break;\n            case '-': System.out.println(a + \" - \" + b + \" = \" + (a - b)); break;\n            case '*': System.out.println(a + \" * \" + b + \" = \" + (a * b)); break;\n            case '/': System.out.println(a + \" / \" + b + \" = \" + (a / b)); break;\n            default:  System.out.println(\"عملية غير صحيحة\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "موجب أو سالب",
+   "lvl": "Lab 6 تمرين 1",
+   "tags": [
+    "if",
+    "scanner"
+   ],
+   "q": "اطلب عدد وحدد هل هو موجب أو سالب باستخدام if.",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class PositiveNegative {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل عدد: \");\n        int n = input.nextInt();\n        if (n > 0) System.out.println(\"موجب\");\n        if (n < 0) System.out.println(\"سالب\");\n        if (n == 0) System.out.println(\"صفر\");\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "زوجي أو فردي",
+   "lvl": "Lab 6 تمرين 2",
+   "tags": [
+    "if",
+    "scanner"
+   ],
+   "q": "اطلب عدد وحدد هل هو زوجي أو فردي باستخدام if-else.",
+   "h": "باقي القسمة على 2.",
+   "s": "import java.util.Scanner;\n\npublic class EvenOdd {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل عدد: \");\n        int n = input.nextInt();\n        if (n % 2 == 0) {\n            System.out.println(\"زوجي\");\n        } else {\n            System.out.println(\"فردي\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "رخصة القيادة",
+   "lvl": "Lab 6 تمرين 4",
+   "tags": [
+    "if",
+    "scanner"
+   ],
+   "q": "اطلب العمر وتحقق هل هو مؤهل لاستخراج رخصة قيادة (18 فأكثر).",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class License {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل عمرك: \");\n        int age = input.nextInt();\n        if (age >= 18) {\n            System.out.println(\"مؤهل لاستخراج الرخصة\");\n        } else {\n            System.out.println(\"غير مؤهل\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "مقارنة متغيرين بكل المعاملات",
+   "lvl": "Lab 6 تطبيق 2",
+   "tags": [
+    "if"
+   ],
+   "q": "عرّف متغيرين int وقارنهم بكل المعاملات العلاقية واطبع true/false لكل مقارنة.",
+   "h": "حط المقارنة بين أقواس داخل println.",
+   "s": "public class Main {\n    public static void main(String[] args) {\n        int a = 10, b = 5;\n        System.out.println(\"a == b: \" + (a == b));   // false\n        System.out.println(\"a != b: \" + (a != b));   // true\n        System.out.println(\"a > b: \" + (a > b));     // true\n        System.out.println(\"a < b: \" + (a < b));     // false\n        System.out.println(\"a >= b: \" + (a >= b));   // true\n        System.out.println(\"a <= b: \" + (a <= b));   // false\n    }\n}"
+  },
+  {
+   "t": "توقّع ناتج الشروط المركبة",
+   "lvl": "Lab 6 جدول",
+   "tags": [
+    "if"
+   ],
+   "q": "وش ناتج كل تعبير (true أو false)؟\n1) (5 > 3) && (2 < 4)\n2) (10 == 10) || (3 != 3)\n3) !(7 > 5)\n4) (4 < 2) && (6 == 6)\n5) (8 >= 8) || (1 > 2)\n6) !(3 <= 2)",
+   "h": "&& تحتاج الطرفين صح، || يكفي طرف واحد، ! تعكس.",
+   "s": "1) true   (true && true)\n2) true   (true || false)\n3) false  (!true)\n4) false  (false && ...)\n5) true   (true || false)\n6) true   (!false)"
+  },
+  {
+   "t": "تحديد اللون",
+   "lvl": "Lab 7 تمرين 3",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ حرف يمثل لون واطبع اسمه: Y=Yellow, G=Green, B=Blue, R=Red\nغير ذلك: \"خطأ في الإدخال: لون ليس من الألوان القياسية\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class ColorSwitch {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل حرف اللون: \");\n        char c = input.next().charAt(0);\n        switch (c) {\n            case 'Y': System.out.println(\"Yellow\"); break;\n            case 'G': System.out.println(\"Green\"); break;\n            case 'B': System.out.println(\"Blue\"); break;\n            case 'R': System.out.println(\"Red\"); break;\n            default: System.out.println(\"خطأ في الإدخال: لون ليس من الألوان القياسية\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "الأشهر الهجرية",
+   "lvl": "Lab 7 تمرين 4",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ رقم الشهر (1-12) واطبع اسم الشهر الهجري المقابل.",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class HijriMonth {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"رقم الشهر: \");\n        int m = input.nextInt();\n        switch (m) {\n            case 1: System.out.println(\"محرم\"); break;\n            case 2: System.out.println(\"صفر\"); break;\n            case 3: System.out.println(\"ربيع الأول\"); break;\n            case 4: System.out.println(\"ربيع الآخر\"); break;\n            case 5: System.out.println(\"جمادى الأولى\"); break;\n            case 6: System.out.println(\"جمادى الآخرة\"); break;\n            case 7: System.out.println(\"رجب\"); break;\n            case 8: System.out.println(\"شعبان\"); break;\n            case 9: System.out.println(\"رمضان\"); break;\n            case 10: System.out.println(\"شوال\"); break;\n            case 11: System.out.println(\"ذو القعدة\"); break;\n            case 12: System.out.println(\"ذو الحجة\"); break;\n            default: System.out.println(\"رقم غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "كود الموظف",
+   "lvl": "Lab 7 تمرين 5",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ كود الموظف واطبع المنصب: HR=موارد بشرية، ACC=محاسب، DEV=مطور، MGR=مدير",
+   "h": "switch يقبل String من جافا 7.",
+   "s": "import java.util.Scanner;\n\npublic class EmployeeCode {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"كود الموظف: \");\n        String code = input.next();\n        switch (code) {\n            case \"HR\":  System.out.println(\"موارد بشرية\"); break;\n            case \"ACC\": System.out.println(\"محاسب\"); break;\n            case \"DEV\": System.out.println(\"مطور\"); break;\n            case \"MGR\": System.out.println(\"مدير\"); break;\n            default: System.out.println(\"كود غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "نوع الفاتورة",
+   "lvl": "Lab 7 تمرين 9",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ حرف وحدد نوع الفاتورة: S=Sales, P=Purchase, R=Return, C=Client\nغير ذلك: \"نوع غير صالح\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class InvoiceType {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"نوع الفاتورة: \");\n        char t = input.next().charAt(0);\n        switch (t) {\n            case 'S': System.out.println(\"Sales\"); break;\n            case 'P': System.out.println(\"Purchase\"); break;\n            case 'R': System.out.println(\"Return\"); break;\n            case 'C': System.out.println(\"Client\"); break;\n            default: System.out.println(\"نوع غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "نظام النقاط",
+   "lvl": "Lab 7 تمرين 10",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ مستوى اللعبة: 1 → 50 نقطة، 2 → 150 نقطة، 3 → 300 نقطة\nغير ذلك: \"نوع غير صالح\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class GamePoints {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"المستوى: \");\n        int level = input.nextInt();\n        switch (level) {\n            case 1: System.out.println(\"50 نقطة\"); break;\n            case 2: System.out.println(\"150 نقطة\"); break;\n            case 3: System.out.println(\"300 نقطة\"); break;\n            default: System.out.println(\"نوع غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "كود الخصم (Fall-Through)",
+   "lvl": "Lab 7 تمرين 11",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "باستخدام switch و Fall-Through:\n1 أو 2 ← خصم 5%\n3 أو 4 ← خصم 10%\n5 ← خصم 20%\nغير ذلك ← لا يوجد خصم",
+   "h": "حالتين بدون break بينهم يشتركون في نفس الأوامر.",
+   "s": "import java.util.Scanner;\n\npublic class DiscountCode {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"كود الخصم: \");\n        int code = input.nextInt();\n        switch (code) {\n            case 1:\n            case 2: System.out.println(\"خصم 5%\"); break;\n            case 3:\n            case 4: System.out.println(\"خصم 10%\"); break;\n            case 5: System.out.println(\"خصم 20%\"); break;\n            default: System.out.println(\"لا يوجد خصم\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "تقييم الخدمة",
+   "lvl": "Lab 7 تمرين 12",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ تقييم A-D: A=ممتاز، B=جيد، C=متوسط، D=ضعيف\nغير ذلك: \"نوع غير صالح\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class ServiceRating {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"التقييم: \");\n        char r = input.next().charAt(0);\n        switch (r) {\n            case 'A': System.out.println(\"ممتاز\"); break;\n            case 'B': System.out.println(\"جيد\"); break;\n            case 'C': System.out.println(\"متوسط\"); break;\n            case 'D': System.out.println(\"ضعيف\"); break;\n            default: System.out.println(\"نوع غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "مفاتيح الاختصار",
+   "lvl": "Lab 7 تمرين 13",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ حرف مع Ctrl: S=حفظ، C=نسخ، V=لصق، Z=تراجع\nغير ذلك: \"نوع غير صالح\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class Shortcuts {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"Ctrl + \");\n        char k = input.next().charAt(0);\n        switch (k) {\n            case 'S': System.out.println(\"حفظ\"); break;\n            case 'C': System.out.println(\"نسخ\"); break;\n            case 'V': System.out.println(\"لصق\"); break;\n            case 'Z': System.out.println(\"تراجع\"); break;\n            default: System.out.println(\"نوع غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "العملات",
+   "lvl": "Lab 7 تمرين 14",
+   "tags": [
+    "switch",
+    "scanner"
+   ],
+   "q": "اقرأ رمز العملة واطبع الدولة: USD=الولايات المتحدة، EUR=أوروبا، JP=اليابان، GBP=بريطانيا، SAR=السعودية\nغير ذلك: \"نوع غير صالح\"",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class Currency {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"رمز العملة: \");\n        String cur = input.next();\n        switch (cur) {\n            case \"USD\": System.out.println(\"الولايات المتحدة\"); break;\n            case \"EUR\": System.out.println(\"أوروبا\"); break;\n            case \"JP\":  System.out.println(\"اليابان\"); break;\n            case \"GBP\": System.out.println(\"بريطانيا\"); break;\n            case \"SAR\": System.out.println(\"السعودية\"); break;\n            default: System.out.println(\"نوع غير صالح\");\n        }\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "من 1 إلى 10 بثلاث حلقات",
+   "lvl": "Lab 8 تمرين 1",
+   "tags": [
+    "loop"
+   ],
+   "q": "اطبع الأرقام من 1 إلى 10 تصاعدياً باستخدام for ثم while ثم do..while.",
+   "h": "",
+   "s": "public class Count1to10 {\n    public static void main(String[] args) {\n        // for\n        for (int i = 1; i <= 10; i++) System.out.println(i);\n\n        // while\n        int j = 1;\n        while (j <= 10) {\n            System.out.println(j);\n            j++;\n        }\n\n        // do..while\n        int k = 1;\n        do {\n            System.out.println(k);\n            k++;\n        } while (k <= 10);\n    }\n}"
+  },
+  {
+   "t": "من 10 إلى 1 بثلاث حلقات",
+   "lvl": "Lab 8 تمرين 2",
+   "tags": [
+    "loop"
+   ],
+   "q": "اطبع الأرقام من 10 إلى 1 تنازلياً باستخدام for ثم while ثم do..while.",
+   "h": "العداد يبدأ من 10 وينقص --.",
+   "s": "public class Count10to1 {\n    public static void main(String[] args) {\n        // for\n        for (int i = 10; i >= 1; i--) System.out.println(i);\n\n        // while\n        int j = 10;\n        while (j >= 1) {\n            System.out.println(j);\n            j--;\n        }\n\n        // do..while\n        int k = 10;\n        do {\n            System.out.println(k);\n            k--;\n        } while (k >= 1);\n    }\n}"
+  },
+  {
+   "t": "مجموع ومتوسط خمسة أعداد",
+   "lvl": "Lab 8 تمرين 3",
+   "tags": [
+    "loop",
+    "scanner"
+   ],
+   "q": "اطلب خمسة أعداد من المستخدم واحسب مجموعها ومتوسطها. (حلها بـ while ثم جرّب for)",
+   "h": "اقسم على 5.0 عشان يطلع المتوسط عشري.",
+   "s": "import java.util.Scanner;\n\npublic class Average5 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        int sum = 0;\n        for (int i = 1; i <= 5; i++) {\n            System.out.print(\"أدخل العدد \" + i + \": \");\n            sum += input.nextInt();\n        }\n        double average = sum / 5.0;\n        System.out.println(\"المجموع: \" + sum);\n        System.out.println(\"المتوسط: \" + average);\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "مجموع عددين من المستخدم",
+   "lvl": "Lab 10 تمرين 1",
+   "tags": [
+    "method",
+    "scanner"
+   ],
+   "q": "اطلب عددين من المستخدم واحسب مجموعهما واطبع الناتج.",
+   "h": "",
+   "s": "import java.util.Scanner;\n\npublic class SumTwo {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"العدد الأول: \");\n        int a = input.nextInt();\n        System.out.print(\"العدد الثاني: \");\n        int b = input.nextInt();\n        System.out.println(\"المجموع = \" + (a + b));\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "برنامج مقسم لدوال",
+   "lvl": "Lab 10 تمرين 2",
+   "tags": [
+    "method",
+    "scanner"
+   ],
+   "q": "اكتب برنامج فيه:\n• دالة لإدخال عدد\n• دالة لطباعة فاصل\n• دالة لجمع العددين\n• دالة لطباعة النتيجة",
+   "h": "كل دالة static عشان نستدعيها من main مباشرة.",
+   "s": "import java.util.Scanner;\n\npublic class Lab10Methods {\n    static Scanner input = new Scanner(System.in);\n\n    static int readNumber(String msg) {      // إدخال\n        System.out.print(msg);\n        return input.nextInt();\n    }\n    static void printLine() {                // فاصل\n        System.out.println(\"--------------------\");\n    }\n    static int add(int a, int b) {           // جمع\n        return a + b;\n    }\n    static void printResult(int r) {         // طباعة النتيجة\n        System.out.println(\"النتيجة = \" + r);\n    }\n\n    public static void main(String[] args) {\n        int a = readNumber(\"العدد الأول: \");\n        int b = readNumber(\"العدد الثاني: \");\n        printLine();\n        printResult(add(a, b));\n        printLine();\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "الدوال الجاهزة Math",
+   "lvl": "Lab 10 Ex2",
+   "tags": [
+    "method",
+    "scanner",
+    "math"
+   ],
+   "q": "اكتب برنامج Lab10Ex2 يقوم بـ:\n1. القيمة المطلقة لعدد من المستخدم\n2. تقريب عدد حقيقي لأعلى\n3. تقريب عدد حقيقي لأسفل\n4. الأكبر بين رقمين\n5. الأصغر بين رقمين\n6. الجذر التربيعي لعدد",
+   "h": "Math.abs و Math.ceil و Math.floor و Math.max و Math.min و Math.sqrt",
+   "s": "import java.util.Scanner;\n\npublic class Lab10Ex2 {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        System.out.print(\"ادخل عدد: \");\n        double x = input.nextDouble();\n        System.out.print(\"ادخل عدد ثاني: \");\n        double y = input.nextDouble();\n        System.out.println(\"القيمة المطلقة: \" + Math.abs(x));\n        System.out.println(\"التقريب لأعلى: \" + Math.ceil(x));\n        System.out.println(\"التقريب لأسفل: \" + Math.floor(x));\n        System.out.println(\"الأكبر: \" + Math.max(x, y));\n        System.out.println(\"الأصغر: \" + Math.min(x, y));\n        System.out.println(\"الجذر التربيعي: \" + Math.sqrt(Math.abs(x)));\n        input.close();\n    }\n}"
+  },
+  {
+   "t": "مثلث مقلوب لليمين",
+   "lvl": "Lab 9 مثال 7",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع الشكل (n = 5):\n*****\n ****\n  ***\n   **\n    *",
+   "h": "المسافات تزيد مع كل صف (i)، والنجوم تنقص (n - i).",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 5;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < i; j++) System.out.print(\" \");\n            for (int k = 0; k < n - i; k++) System.out.print(\"*\");\n            System.out.println();\n        }\n    }\n}"
+  },
+  {
+   "t": "هرم مقلوب",
+   "lvl": "Lab 9 مثال 8",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع الشكل (n = 7):\n* * * * * * *\n * * * * * *\n  * * * * *\n   * * * *\n    * * *\n     * *\n      *",
+   "h": "نفس مثال 7 لكن النجمة تُطبع \"* \" (نجمة ومسافة).",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 7;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < i; j++) System.out.print(\" \");\n            for (int k = 0; k < n - i; k++) System.out.print(\"* \");\n            System.out.println();\n        }\n    }\n}"
+  },
+  {
+   "t": "متوازي أضلاع",
+   "lvl": "Lab 9 مثال 10",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع متوازي أضلاع من النجوم (n = 5 صفوف، كل صف 10 نجوم، وكل صف يبدأ أقرب لليسار من اللي قبله).",
+   "h": "المسافات = n - i، والنجوم ثابتة في كل صف.",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 5;\n        for (int i = 1; i <= n; i++) {\n            for (int j = n; j > i; j--) System.out.print(\" \");\n            for (int k = 1; k <= n * 2; k++) System.out.print(\"*\");\n            System.out.println();\n        }\n    }\n}"
+  },
+  {
+   "t": "السهم (مثلث فوق ومقلوب تحت)",
+   "lvl": "Lab 9 مثال 13",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع الشكل (N = 5):\n*\n* *\n* * *\n* * * *\n* * * * *\n* * * *\n* * *\n* *\n*",
+   "h": "حلقتين منفصلتين: الأولى من 1 إلى N، والثانية من N-1 نازل إلى 1.",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 5;\n        for (int i = 1; i <= n; i++) {\n            for (int j = 1; j <= i; j++) System.out.print(\"* \");\n            System.out.println();\n        }\n        for (int i = n - 1; i >= 1; i--) {\n            for (int j = 1; j <= i; j++) System.out.print(\"* \");\n            System.out.println();\n        }\n    }\n}"
+  },
+  {
+   "t": "أرقام تنازلية",
+   "lvl": "Lab 9 مثال 15",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع الشكل (N = 6):\n123456\n12345\n1234\n123\n12\n1",
+   "h": "حد الحلقة الداخلية = N - i + 1، واطبع j بدون مسافة.",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 6;\n        for (int i = 1; i <= n; i++) {\n            int limit = n - i + 1;\n            for (int j = 1; j <= limit; j++) System.out.print(j);\n            System.out.println();\n        }\n    }\n}"
+  },
+  {
+   "t": "القطر الرئيسي",
+   "lvl": "Lab 9 مثال 14",
+   "tags": [
+    "loop",
+    "nested"
+   ],
+   "q": "اطبع مصفوفة 7×7: القطر * وفوقه 1 وتحته 0:\n* 1 1 1 1 1 1\n0 * 1 1 1 1 1\n0 0 * 1 1 1 1\n...",
+   "h": "i == j القطر، i < j فوقه، i > j تحته.",
+   "s": "public class Shape {\n    public static void main(String[] args) {\n        int n = 7;\n        for (int i = 0; i < n; i++) {\n            for (int j = 0; j < n; j++) {\n                if (i == j) System.out.print(\"* \");\n                else if (i < j) System.out.print(\"1 \");\n                else System.out.print(\"0 \");\n            }\n            System.out.println();\n        }\n    }\n}"
+  }
+ ]
+}
