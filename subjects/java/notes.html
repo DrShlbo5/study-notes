@@ -1,5 +1,5 @@
 <div class="trap"><b>الاختبار الفصلي الأول (حسب آخر شريحة في محاضرة switch)</b>شامل كل المواضيع من البداية حتى switch. يعني الحلقات والدوال (معمل 8 و9 و10) غالباً ما تدخل في الفصلي الأول. ركّز على: المقدمة، المتغيرات وأنواع البيانات، العمليات وMath وScanner، if، switch.</div>
-<h2 id="j0">مقدمة البرمجة وجافا<span class="lab">محاضرة 00</span></h2>
+<h2 data-part="theory" id="j0">مقدمة البرمجة وجافا<span class="lab">محاضرة 00</span></h2>
 <p><b>البرمجة</b>: <mark>عملية كتابة تعليمات وأوامر لجهاز الحاسب بلغة تفهمها الآلة لتنفيذ مهام محددة أو حل مشكلات معيّنة.</mark> وهي: إعطاء أوامر بخطوات واضحة، ووسيلة تواصل تحوّل أفكار البشر للغة الآلة، وحل مشكلات بتحليلها وتحويلها لحلول برمجية.</p>
 <div class="tbl"><table>
 <tr><th></th><th>لغة الآلة (Machine Code)</th><th>لغات البرمجة (Programming Languages)</th></tr>
@@ -36,7 +36,7 @@
 <tr><td><code>System.out.printf()</code></td><td>تطبع <b>بترتيب محدد</b> (تنسيق): <code>printf("x is: %d", x)</code> يحط قيمة x مكان <code>%d</code></td></tr>
 </table></div>
 
-<h2 id="j0b">المتغيرات وأنواع البيانات<span class="lab">محاضرة 01</span></h2>
+<h2 data-part="theory" id="j0b">المتغيرات وأنواع البيانات<span class="lab">محاضرة 01</span></h2>
 <p><b>المتغير</b>: <mark>مكان يتم حجزه في الذاكرة لتخزين قيم (بيانات لها نوع محدد) أثناء تشغيل البرنامج.</mark> في جافا لازم المبرمج يحدد النوع، والقيمة ممكن تتغير أثناء التنفيذ. الصيغة: النوع ثم مسافة ثم الاسم ثم <code>;</code></p>
 <div class="tbl"><table>
 <tr><th>المصطلح</th><th>المعنى</th><th>مثال</th></tr>
@@ -65,7 +65,7 @@
   <li><b>الكلمات المحجوزة</b> لا تصلح أسماء متغيرات، مثل: int, class, if, else, for, while, switch, case, break, new, public, static, void, return, true مو منها لكنها قيمة محجوزة أيضاً.</li>
 </ul>
 
-<h2 id="j0c">العمليات وMath وإدخال البيانات<span class="lab">محاضرة 02</span></h2>
+<h2 data-part="theory" id="j0c">العمليات وMath وإدخال البيانات<span class="lab">محاضرة 02</span></h2>
 <ul>
   <li><b>قسمة int على int</b> ناتجها دائماً عدد صحيح، والمترجم <mark>يقتطع الجزء العشري (Truncation) ولا يقرّب</mark>: <code>5 / 2</code> = 2. للنتيجة الدقيقة: <code>(double) a / b</code> أو <code>1.0 * a / b</code>.</li>
   <li><b>%</b> باقي القسمة: <code>10 % 3</code> = 1. يُستخدم لمعرفة الزوجي والفردي (<code>% 2</code>).</li>
@@ -102,7 +102,7 @@ double circleArea = Math.PI * Math.pow(radius, 2);           // مساحة ال�
 <tr><td><code>hasNextBoolean()</code></td><td>المدخل true أو false حصراً</td></tr>
 </table></div>
 
-<h2 id="j0d">العوامل والشروط<span class="lab">محاضرة 03 و04</span></h2>
+<h2 data-part="theory" id="j0d">العوامل والشروط<span class="lab">محاضرة 03 و04</span></h2>
 <ul>
   <li><b>أنواع العوامل الأربعة</b>: الحسابية (Arithmetic)، الإسناد (Assignment)، المقارنة (Comparison)، المنطقية (Logical).</li>
   <li><code>b = a++</code> زيادة لاحقة (Post-increment): a=6, b=5. <code>b = ++a</code> زيادة سابقة (Pre-increment): a=6, b=6. ونفسها مع <code>--</code>.</li>
@@ -125,7 +125,7 @@ double circleArea = Math.PI * Math.pow(radius, 2);           // مساحة ال�
 </ul>
 <div class="trap"><b>انتبه على ملاحظات في الشرائح</b>عناوين شريحتي 4 و5 في محاضرة 03 مقلوبة، لكن الأمثلة صحيحة: <code>a++</code> لاحقة و<code>++a</code> سابقة. وقول المحاضرة إن كل دوال Math ترجع double مو دقيق دائماً: <code>Math.round</code> ترجع long، و<code>Math.max(5, 2)</code> و<code>Math.abs(-12)</code> مع int ترجع int (يطبع 5 و12 بدون .0).</div>
 
-<h2 id="j1">بنية برنامج جافا<span class="lab">معمل 1 و2</span></h2>
+<h2 data-part="practical" id="j1">بنية برنامج جافا<span class="lab">معمل 1 و2</span></h2>
 <pre><code>// FirstJavaClass.java   ← اسم الملف = اسم الكلاس
 public class FirstJavaClass {
     public static void main(String[] args) {   // نقطة البداية
@@ -155,7 +155,7 @@ public class FirstJavaClass {
   <li><b>NetBeans</b>: مشروع جديد بـ <code>Ctrl+Shift+N</code> ← Java with Ant ← Java Application، وفعّل Create Main Class. يحتاج JDK.</li>
 </ul>
 
-<h2 id="j2">جمل الطباعة ورموز التجاوز<span class="lab">معمل 2 و3</span></h2>
+<h2 data-part="practical" id="j2">جمل الطباعة ورموز التجاوز<span class="lab">معمل 2 و3</span></h2>
 <ul>
   <li><code>System.out.println()</code> تطبع ثم <b>تنزل سطر جديد</b>. <code>System.out.print()</code> تطبع <b>بدون</b> نزول سطر.</li>
   <li><code>System.out.println();</code> بدون شيء تطبع سطراً فارغاً.</li>
@@ -175,7 +175,7 @@ public class FirstJavaClass {
 </table></div>
 <div class="trap"><b>فخ الربط</b><code>"Sum: " + 2 + 3</code> يطبع <code>Sum: 23</code>، لأن الربط يمشي من اليسار ويصير كل شيء نص. لو تبي الجمع اكتب <code>"Sum: " + (2 + 3)</code> ← <code>Sum: 5</code>.</div>
 
-<h2 id="j3">المتغيرات وأنواع البيانات والعمليات<span class="lab">معمل 4</span></h2>
+<h2 data-part="practical" id="j3">المتغيرات وأنواع البيانات والعمليات<span class="lab">معمل 4</span></h2>
 <p>المتغير مساحة في الذاكرة لها <b>اسم</b> و<b>نوع بيانات</b> و<b>قيمة</b>: <code>int age = 22;</code>. يجب تعريفه قبل استخدامه، ويمكن تعريف أكثر من متغير من نفس النوع: <code>int x, y, z;</code> أو <code>int i = 2, j = 2, k = 2;</code></p>
 <div class="tbl"><table>
 <tr><th>النوع</th><th>الحجم</th><th>المدى</th><th>مثال</th></tr>
@@ -218,7 +218,7 @@ System.out.println(--x);  // 6   (x صار 6)
 System.out.println(x--);  // 6   (بعدها x صار 5)
 System.out.println(x);    // 5</code></pre>
 
-<h2 id="j4">قراءة المدخلات بـ Scanner<span class="lab">معمل 5</span></h2>
+<h2 data-part="practical" id="j4">قراءة المدخلات بـ Scanner<span class="lab">معمل 5</span></h2>
 <pre><code>import java.util.Scanner;                    // 1) الاستيراد
 public class One {
     public static void main(String[] args) {
@@ -245,7 +245,7 @@ public class One {
 <div class="trap"><b>تمرين 8 في المعمل</b>لو أدخل المستخدم نصاً والبرنامج ينتظر رقماً (<code>nextInt</code>) يتوقف البرنامج بخطأ وقت التشغيل اسمه <code>InputMismatchException</code>.</div>
 <div class="trap"><b>فخ nextLine</b>لو قرأت <code>nextInt()</code> ثم <code>nextLine()</code>، الـ nextLine تأخذ سطراً فارغاً (بقايا Enter). الحل: <code>input.nextLine();</code> زيادة قبلها، أو اقرأ النص أولاً.</div>
 
-<h2 id="j5">المعاملات وجملة if<span class="lab">معمل 6</span></h2>
+<h2 data-part="practical" id="j5">المعاملات وجملة if<span class="lab">معمل 6</span></h2>
 <div class="grid2">
 <div class="tbl"><table>
 <tr><th>علاقية</th><th>المعنى</th></tr>
@@ -278,7 +278,7 @@ public class One {
 }</code></pre>
 <p>الترتيب مهم: أول شرط يتحقق يتنفذ والباقي يتجاهله.</p>
 
-<h2 id="j6">جملة switch<span class="lab">معمل 7</span></h2>
+<h2 data-part="practical" id="j6">جملة switch<span class="lab">معمل 7</span></h2>
 <pre><code>switch (dayNumber) {
     case 1:  dayName = "الإثنين"; break;
     case 2:  dayName = "الثلاثاء"; break;
@@ -299,7 +299,7 @@ public class One {
 <tr><td>المرونة</td><td>أقل</td><td>أكثر</td></tr>
 </table></div>
 
-<h2 id="j7">جمل التكرار<span class="lab">معمل 8</span></h2>
+<h2 data-part="practical" id="j7">جمل التكرار<span class="lab">معمل 8</span></h2>
 <div class="grid2">
 <pre><code>for (int i = 1; i <= 5; i++) {
     System.out.println(i);
@@ -329,7 +329,7 @@ do {
   <li><code>continue</code>: يتخطى الدورة الحالية فقط. مثال: لو <code>i % 3 == 0</code> continue من 1 إلى 7 ← يطبع 1 2 4 5 7.</li>
 </ul>
 
-<h2 id="j8">الحلقات المتداخلة<span class="lab">معمل 9</span></h2>
+<h2 data-part="practical" id="j8">الحلقات المتداخلة<span class="lab">معمل 9</span></h2>
 <p>الحلقة الخارجية (Outer) = <b>الصفوف</b>، والداخلية (Inner) = <b>الأعمدة</b>. الداخلية تكمل كل دوراتها مع كل دورة للخارجية، وبعد الداخلية نكتب <code>println()</code> للنزول سطر.</p>
 <div class="grid2">
 <div><pre><code>// مثلث
@@ -375,7 +375,7 @@ for (int i = 1; i <= N; i++) {
 </div>
 <p>القاعدة: اطبع رقم الصف <code>i</code> لتحصل على 1 1 1 / 2 2 2، واطبع رقم العمود <code>j</code> لتحصل على 1 2 3. ولشكل القطر: <code>i == j</code> القطر، <code>i &lt; j</code> فوقه، <code>i &gt; j</code> تحته.</p>
 
-<h2 id="j9">الدوال (Methods)<span class="lab">معمل 10</span></h2>
+<h2 data-part="practical" id="j9">الدوال (Methods)<span class="lab">معمل 10</span></h2>
 <p>الدالة جزء من الكود ينفذ مهمة محددة وله اسم، نستدعيه أكثر من مرة بدون تكرار الكتابة. فوائدها: تقليل التكرار، وتنظيم البرنامج، وسهولة الصيانة، وإعادة الاستخدام.</p>
 <div class="tbl"><table>
 <tr><th>النوع</th><th>مثال</th></tr>
@@ -399,7 +399,7 @@ for (int i = 1; i <= N; i++) {
 </table></div>
 <p>لاحظ: <code>sqrt</code> و<code>pow</code> و<code>ceil</code> و<code>floor</code> ترجع <b>double</b> (لذلك يطلع .0).</p>
 
-<h2 id="j10">حلول تمارين مختارة</h2>
+<h2 data-part="practical" id="j10">حلول تمارين مختارة</h2>
 <details><summary>معمل 6: تقدير الطالب مع التحقق من الدرجة</summary>
 <pre><code>Scanner input = new Scanner(System.in);
 System.out.print("ادخل الدرجة: ");

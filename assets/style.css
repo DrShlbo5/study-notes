@@ -110,3 +110,8 @@ footer{margin-top:48px;color:var(--muted);font-size:13px;border-top:1px solid va
 .state{padding:40px 0;color:var(--muted);text-align:center}
 .state.err{color:var(--bad)}
 .intro{color:var(--muted)}
+/* مفتاح النظري / العملي داخل كل مادة */
+.parts{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin:18px 0 4px;padding:4px;background:var(--surface);border:1.5px solid var(--line);border-radius:12px;scroll-margin-top:72px}
+.parts button{font:700 16px var(--f-display);border:0;background:none;color:var(--muted);padding:10px;border-radius:9px;cursor:pointer}
+.parts button[aria-pressed="true"]{background:var(--c);color:var(--surface)}
+.parts button:focus-visible{outline:3px solid var(--c);outline-offset:2px}

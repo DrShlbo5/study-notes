@@ -199,35 +199,84 @@
     const sec = el('section', 'subject');
     sec.id = S.id; sec.dataset.s = S.id; sec.hidden = true;
     sec.setAttribute('role', 'tabpanel');
-    const toc = el('div', 'toc');
-    sec.appendChild(toc);
+    // قسمين: النظري (المحاضرات والتعاريف) والعملي (المعامل والحلول والمسائل)
+    const PARTS = [['theory', 'النظري'], ['practical', 'العملي']];
+    const intro = el('div', 'notes');
+    const parts = {};
+    PARTS.forEach(([k]) => {
+      const p = el('div', 'part'); p.dataset.part = k;
+      p.append(el('div', 'toc'), el('div', 'notes'));
+      parts[k] = p;
+    });
+
+    // كل h2 في notes.html ومحتواه لين الـ h2 اللي بعده يروح للقسم المحدد في data-part (الافتراضي النظري)
     if (S.notes) {
-      const notes = el('div', 'notes');
-      notes.innerHTML = S.notes;
-      sec.appendChild(notes);
+      const tmp = el('div'); tmp.innerHTML = S.notes;
+      let dest = intro;
+      [...tmp.childNodes].forEach(n => {
+        if (n.nodeName === 'H2') dest = parts[n.dataset.part === 'practical' ? 'practical' : 'theory'].lastChild;
+        dest.appendChild(n);
+      });
     }
-    if (S.theory && S.theory.length) renderTheory(sec, S);
+
+    const T = parts.theory, P = parts.practical;
+    if (S.theory && S.theory.length) renderTheory(T, S);
     if (S.tf && S.tf.length) {
-      const h = head(sec, S.id + '-tf', 'صح أو خطأ', true);
-      const box = el('div'); sec.appendChild(box);
+      const h = head(T, S.id + '-tf', 'صح أو خطأ', true);
+      const box = el('div'); T.appendChild(box);
       const go = () => renderTF(box, S.tf, h.score);
       h.reset.addEventListener('click', go); go();
     }
-    if (S.problems && S.problems.items && S.problems.items.length) renderProblems(sec, S);
-    if (S.quiz && S.quiz.length) {
-      const h = head(sec, S.id + '-quiz', 'اختبر نفسك: ' + (S.info.short || S.info.title), true);
-      const box = el('div', 'quiz'); sec.appendChild(box);
-      const go = () => renderQuiz(box, S.quiz, h.score);
+    if (S.problems && S.problems.items && S.problems.items.length) renderProblems(P, S);
+    // أسئلة الاختبار: part في السؤال، وإلا أسئلة الكود للعملي والباقي للنظري
+    const partOf = it => it.part || (it.code || /وش يطبع|ناتج|قيمة \$|[;()]/.test(it.q) ? 'practical' : 'theory');
+    PARTS.forEach(([k, label]) => {
+      const list = (S.quiz || []).filter(it => partOf(it) === k);
+      if (!list.length) return;
+      const box = parts[k];
+      const h = head(box, S.id + '-quiz-' + k, 'اختبر نفسك (' + label + '): ' + (S.info.short || S.info.title), true);
+      const qb = el('div', 'quiz'); box.appendChild(qb);
+      const go = () => renderQuiz(qb, list, h.score);
       h.reset.addEventListener('click', go); go();
-    }
-    // فهرس تلقائي من عناوين h2
-    sec.querySelectorAll('h2').forEach((h2, i) => {
-      if (!h2.id) h2.id = S.id + '-s' + i;
-      const a = el('a', null, h2.dataset.toc || h2.childNodes[0].textContent.trim());
-      a.href = '#' + h2.id;
-      toc.appendChild(a);
     });
+
+    // فهرس تلقائي لكل قسم من عناوين h2
+    PARTS.forEach(([k]) => {
+      const toc = parts[k].firstChild;
+      parts[k].querySelectorAll('h2').forEach((h2, i) => {
+        if (!h2.id) h2.id = S.id + '-' + k + i;
+        const a = el('a', null, h2.dataset.toc || h2.childNodes[0].textContent.trim());
+        a.href = '#' + h2.id;
+        toc.appendChild(a);
+      });
+    });
+
+    const used = PARTS.filter(([k]) => parts[k].querySelector('h2'));
+    if (intro.childNodes.length) sec.appendChild(intro);
+    const sw = el('div', 'parts'); sw.setAttribute('role', 'group'); sw.setAttribute('aria-label', 'القسم');
+    const key = 'part-' + S.id;
+    sec.showPart = (k, save) => {
+      if (!parts[k] || !parts[k].querySelector('h2')) k = used.length ? used[0][0] : 'theory';
+      PARTS.forEach(([x]) => { parts[x].hidden = x !== k; });
+      sw.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.part === k)));
+      if (save) store.set(key, k);
+    };
+    used.forEach(([k, label]) => {
+      const b = el('button', null, label); b.type = 'button'; b.dataset.part = k;
+      b.addEventListener('click', () => { sec.showPart(k, true); sw.scrollIntoView({ block: 'start' }); });
+      sw.appendChild(b);
+    });
+    if (used.length > 1) sec.appendChild(sw);
+    PARTS.forEach(([k]) => sec.appendChild(parts[k]));
+    sec.showPart(store.get(key) || 'theory', false);
     return sec;
+  }
+
+  // يفتح القسم (نظري/عملي) اللي فيه العنصر قبل ما ننتقل له
+  function reveal(target) {
+    const part = target.closest('.part');
+    const sec = target.closest('section.subject');
+    if (part && part.hidden && sec) sec.showPart(part.dataset.part, true);
   }
 
   try {
@@ -267,7 +316,7 @@
     main.addEventListener('click', e => {
       const a = e.target.closest('a[href^="#"]');
       const target = a && document.getElementById(a.getAttribute('href').slice(1));
-      if (target) { e.preventDefault(); target.scrollIntoView(); }
+      if (target) { e.preventDefault(); reveal(target); target.scrollIntoView(); }
     });
 
     const h = decodeURIComponent(location.hash.slice(1));
@@ -275,7 +324,7 @@
     const owner = target && target.closest('section.subject');
     let start = owner ? owner.id : (ids.includes(store.get('tab')) ? store.get('tab') : ids[0]);
     show(start, false);
-    if (owner && target !== owner) target.scrollIntoView();
+    if (owner && target !== owner) { reveal(target); target.scrollIntoView(); }
   } catch (err) {
     main.innerHTML = '';
     main.appendChild(el('p', 'state err', 'صار خطأ في التحميل: ' + err.message));

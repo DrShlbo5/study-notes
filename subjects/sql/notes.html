@@ -1,4 +1,4 @@
-<h2 id="s1">مراجعة SQL<span class="lab">Lab 2 · Tut 2</span></h2>
+<h2 data-part="theory" id="s1">مراجعة SQL<span class="lab">Lab 2 · Tut 2</span></h2>
 <ul>
   <li><b>SQL</b>: لغة قياسية لتخزين ومعالجة واسترجاع البيانات من قواعد البيانات العلائقية.</li>
   <li><b>قاعدة البيانات العلائقية</b>: البيانات في <mark>جداول من صفوف (Rows/Records) وأعمدة (Columns/Attributes)</mark> وبينها علاقات.</li>
@@ -39,7 +39,7 @@ SELECT first_name FROM students MINUS     SELECT course_name FROM courses;  -- E
 </ul>
 <div class="trap"><b>ملاحظة على Oracle (APEX)</b><code>CONCAT</code> في Oracle تأخذ قيمتين فقط، فالأفضل الربط بـ <code>||</code>. و<code>LIMIT 5</code> لا تعمل في Oracle، والبديل <code>FETCH FIRST 5 ROWS ONLY</code>.</div>
 
-<h2 id="s2">أساسيات PL/SQL وبنية الكتلة<span class="lab">Lab 3 · Tut 3</span></h2>
+<h2 data-part="theory" id="s2">أساسيات PL/SQL وبنية الكتلة<span class="lab">Lab 3 · Tut 3</span></h2>
 <p><b>PL/SQL</b> لغة إجرائية من Oracle تجمع أوامر SQL مع خصائص اللغات الإجرائية: المتغيرات، والشروط (IF)، والتكرار (LOOP)، والاستثناءات (Exceptions). البرنامج اسمه <b>كتلة (Block)</b>.</p>
 <pre><code>DECLARE                    -- اختياري: تعريف المتغيرات
    v_name   VARCHAR2(20) := 'Ali';
@@ -58,7 +58,7 @@ END;                       -- إجباري</code></pre>
 </ul>
 <div class="trap"><b>Tut 3 · Task 1</b>تنفيذ <code>DBMS_OUTPUT.PUT_LINE('Hello PLSQL');</code> لوحدها يعطي خطأ، لأنها جملة PL/SQL ولازم تكون داخل <code>BEGIN ... END;</code></div>
 
-<h2 id="s3">المتغيرات وأنواع البيانات<span class="lab">Lab 4 · Tut 4</span></h2>
+<h2 data-part="theory" id="s3">المتغيرات وأنواع البيانات<span class="lab">Lab 4 · Tut 4</span></h2>
 <ul>
   <li>المتغير مكان في الذاكرة لقيمة من نوع محدد، و<mark>يُعرّف في قسم DECLARE</mark>.</li>
   <li><mark>معامل الإسناد في PL/SQL هو <code>:=</code></mark>، والمقارنة بـ <code>=</code>.</li>
@@ -84,7 +84,7 @@ END;</code></pre>
 <div class="trap"><b>طباعة BOOLEAN</b>في أغلب إصدارات Oracle ما تقدر تطبع BOOLEAN مباشرة بـ PUT_LINE أو تربطها بـ <code>||</code>. استخدم IF: <code>IF v_flag THEN DBMS_OUTPUT.PUT_LINE('TRUE'); END IF;</code></div>
 <p><b>الممارسات الجيدة</b>: أسماء واضحة (<code>v_salary</code> بدل <code>x1</code>)، وتعليقات، وتنسيق بإزاحة، وCONSTANT للقيم الثابتة، وتهيئة المتغيرات.</p>
 
-<h2 id="s4">SQL داخل PL/SQL<span class="lab">Lab 5 · Tut 5</span></h2>
+<h2 data-part="theory" id="s4">SQL داخل PL/SQL<span class="lab">Lab 5 · Tut 5</span></h2>
 <h3>1) EXECUTE IMMEDIATE لأوامر DDL</h3>
 <pre><code>BEGIN
    EXECUTE IMMEDIATE 'CREATE TABLE departments (dept_id INT PRIMARY KEY, dept_name VARCHAR2(50))';
@@ -132,7 +132,7 @@ BEGIN
    COMMIT;
 END;</code></pre>
 
-<h2 id="s5">الجمل الشرطية IF و CASE<span class="lab">Lab 6</span></h2>
+<h2 data-part="theory" id="s5">الجمل الشرطية IF و CASE<span class="lab">Lab 6</span></h2>
 <div class="grid2">
 <pre><code>IF v_salary >= 15000 THEN
    DBMS_OUTPUT.PUT_LINE('Executive');
@@ -170,7 +170,7 @@ ELSE
 END IF;</code></pre>
 <p>قاعدة HR في APEX تثبتها من SQL Workshop ← Utilities ← Sample Datasets ← HR Data ← Install. أرقام الأقسام: 60 = IT، و80 = Sales، و90 = Executive.</p>
 
-<h2 id="s6">الحلقات والأخطاء والإجراءات والدوال<span class="lab">Lab 3</span></h2>
+<h2 data-part="theory" id="s6">الحلقات والأخطاء والإجراءات والدوال<span class="lab">Lab 3</span></h2>
 <div class="grid2">
 <pre><code>BEGIN
    FOR i IN 1..5 LOOP
@@ -209,7 +209,7 @@ END;
 SELECT calculate_bonus(5000) FROM dual;     -- 500</code></pre>
 <p>الإجراء والدالة <b>كتل باسم</b>، تُخزن في قاعدة البيانات. في APEX تلقاها في <b>SQL Workshop ← Object Browser</b> تحت Procedures وFunctions. الفرق: <mark>الدالة ترجع قيمة بـ RETURN والإجراء لا</mark>.</p>
 
-<h2 id="s7">حلول Tutorials</h2>
+<h2 data-part="practical" id="s7">حلول Tutorials</h2>
 <details><summary>Tut 2 و Tut 5: الأسئلة النظرية</summary>
 <p><b>Tut 2</b>: 1) ب لغة قياسية لتخزين ومعالجة واسترجاع البيانات. 2) ج جداول من صفوف وأعمدة. 3) ج تكوين العلاقات. 4) د Many-to-One-to-One. 5) ج فلترة البيانات.</p>
 <p><b>Tut 5</b>: 1) B تنفيذ SQL الديناميكية مثل DDL. 2) C إسناد قيم الأعمدة لمتغيرات. 3) B صف واحد فقط. 4) B ربط نوع المتغير بنوع عمود. 5) B EXECUTE IMMEDIATE.</p>

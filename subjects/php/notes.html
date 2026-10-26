@@ -1,4 +1,4 @@
-<h2 id="p1">مقدمة عن PHP<span class="lab">محاضرة 1 · Lab 1</span></h2>
+<h2 data-part="theory" id="p1">مقدمة عن PHP<span class="lab">محاضرة 1 · Lab 1</span></h2>
 <ul>
   <li>PHP لغة لتطوير تطبيقات الويب الديناميكية، و<mark>تعمل على جانب الخادم (Server-side)</mark>.</li>
   <li>طريقة العمل: المتصفح يرسل HTTP Request، والخادم ينفذ ملف PHP ويتعامل مع الملفات وقواعد البيانات، ثم يرسل <b>ناتج HTML فقط</b> للمتصفح. <mark>كود PHP نفسه لا يصل للمستخدم.</mark></li>
@@ -17,7 +17,7 @@
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
 
-<h2 id="p2">الطباعة echo و print<span class="lab">محاضرة 1</span></h2>
+<h2 data-part="theory" id="p2">الطباعة echo و print<span class="lab">محاضرة 1</span></h2>
 <div class="tbl"><table>
 <tr><th></th><th>echo</th><th>print</th></tr>
 <tr><td>عدد النصوص</td><td>أكثر من نص مفصولة بفاصلة <code>,</code></td><td>نص واحد فقط</td></tr>
@@ -48,7 +48,7 @@ if (print "تم التنفيذ") echo " ✔";  // يطبع: تم التنفيذ 
 <tr><td><code>echo 'i\'ll study';</code> / <code>echo "i'll study";</code></td><td>i'll study</td></tr>
 </table></div>
 
-<h2 id="p3">المتغيرات وأنواع البيانات<span class="lab">محاضرة 2</span></h2>
+<h2 data-part="theory" id="p3">المتغيرات وأنواع البيانات<span class="lab">محاضرة 2</span></h2>
 <ul>
   <li><mark>يبدأ المتغير بـ <code>$</code></mark>، ثم حرف أو <code>_</code>. لا يبدأ برقم، ولا يحتوي مسافة ولا <code>-</code>.</li>
   <li>أسماء المتغيرات حساسة لحالة الأحرف: <code>$x</code> غير <code>$X</code>.</li>
@@ -63,7 +63,7 @@ if (print "تم التنفيذ") echo " ✔";  // يطبع: تم التنفيذ 
 <tr><td><code>$2name</code> (يبدأ برقم)، <code>name</code> (بدون $)، <code>$user-name</code>، <code>$user name</code>، <code>$123</code></td></tr></table></div>
 </div>
 
-<h2 id="p4">العمليات<span class="lab">محاضرة 2</span></h2>
+<h2 data-part="theory" id="p4">العمليات<span class="lab">محاضرة 2</span></h2>
 <div class="grid2">
 <div class="tbl"><table>
 <tr><th>حسابية</th><th>x=10, y=4</th></tr>
@@ -95,7 +95,7 @@ $x = 10; echo $x--; echo $x;   // 10  9</code></pre>
 <h3>المنطقية</h3>
 <p><code>and</code> و<code>&amp;&amp;</code>: الاثنين true. <code>or</code> و<code>||</code>: أحدهما true. <code>xor</code>: <mark>واحد فقط true وليس الاثنين</mark>. <code>!</code>: العكس.</p>
 
-<h2 id="p5">الجمل الشرطية<span class="lab">محاضرة 3 · Lab 3</span></h2>
+<h2 data-part="theory" id="p5">الجمل الشرطية<span class="lab">محاضرة 3 · Lab 3</span></h2>
 <pre><code>if ($mark >= 60)
     echo "Pass";            // بدون {} السطر التالي فقط يتبع if
 
@@ -121,7 +121,7 @@ switch (true) {               // switch مع شروط
 }</code></pre>
 <p>في PHP تُكتب <code>elseif</code> كلمة واحدة (و<code>else if</code> تعمل أيضاً).</p>
 
-<h2 id="p6">الحلقات<span class="lab">محاضرة 4 · Lab 4</span></h2>
+<h2 data-part="theory" id="p6">الحلقات<span class="lab">محاضرة 4 · Lab 4</span></h2>
 <div class="grid2">
 <div><pre><code>$i = 1;
 while ($i <= 4) {
@@ -138,7 +138,7 @@ do {
 <div><p><b>while</b> تفحص الشرط أولاً. <b>do..while</b> <mark>تنفذ مرة واحدة على الأقل</mark>. <b>for</b> لما يكون عدد التكرار محدداً.</p></div>
 </div>
 
-<h2 id="p6b">النماذج Forms و $_POST<span class="lab">تمارين Forms</span></h2>
+<h2 data-part="practical" id="p6b">النماذج Forms و $_POST<span class="lab">تمارين Forms</span></h2>
 <p>النموذج يرسل اللي كتبه المستخدم للسيرفر، وPHP تقرأه من مصفوفة <code>$_POST</code> (أو <code>$_GET</code>) باستخدام <mark>اسم الحقل name</mark>.</p>
 <ul>
   <li><code>method="post"</code>: البيانات ما تظهر في الرابط. <code>method="get"</code>: تظهر في الرابط بعد <code>?</code>.</li>
@@ -163,7 +163,7 @@ if (isset($_POST['calc'])) {
 ?&gt;</code></pre>
 <div class="trap"><b>انتبه</b>لو المستخدم ما اختار أي radio، ما ينرسل <code>degree</code> أصلاً. تحقق بـ <code>isset($_POST['degree'])</code> قبل استخدامه. وحلول تمرينَي الفورم في قسم المسائل تحت.</div>
 
-<h2 id="p7">حلول المعامل</h2>
+<h2 data-part="practical" id="p7">حلول المعامل</h2>
 <details><summary>Lab 2: الحسابات (1 إلى 8)</summary>
 <pre><code>&lt;?php
 // 1
